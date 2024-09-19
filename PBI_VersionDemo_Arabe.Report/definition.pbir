@@ -1,0 +1,9 @@
+{
+  "version": "4.0",
+  "datasetReference": {
+    "byPath": {
+      "path": "../PBI_VersionDemo_Arabe.SemanticModel"
+    },
+    "byConnection": null
+  }
+}

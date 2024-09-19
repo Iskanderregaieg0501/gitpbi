@@ -1,0 +1,1981 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "mesure",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "bloc",
+          "size": {
+            "height": 136,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "budget",
+          "size": {
+            "height": 208,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "budget_categorie",
+          "size": {
+            "height": 184,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "budget_par_medecin_fac",
+          "size": {
+            "height": 232,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "budget_par_medecin_reali",
+          "size": {
+            "height": 232,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "categorie societe",
+          "size": {
+            "height": 208,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "centre de profit",
+          "size": {
+            "height": 136,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "Conv",
+          "size": {
+            "height": 208,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "Dates",
+          "size": {
+            "height": 280,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "DSO",
+          "size": {
+            "height": 232,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "famille de prestations",
+          "size": {
+            "height": 208,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "famille des articles",
+          "size": {
+            "height": 136,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "medecin",
+          "size": {
+            "height": 256,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "nationality",
+          "size": {
+            "height": 208,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "nature admission",
+          "size": {
+            "height": 136,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "ORDERCENTER",
+          "size": {
+            "height": 136,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "recouv details_recouvrement",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "recouv recouvrement",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "recouv recouvrement_payant",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting Achat_consomme",
+          "size": {
+            "height": 280,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting achat_pharmacie",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting activite_bloc",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting Ajust_maj_rem",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting Ajustement",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting Available_time_bloc",
+          "size": {
+            "height": 184,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting clfacture_consolide_table",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting collection",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting crédit_bancaire",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting crédit_leasing",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting CTImpayer",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting dossier_instance",
+          "size": {
+            "height": 280,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting effectif",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting etat_dossier",
+          "size": {
+            "height": 256,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting fournisseur",
+          "size": {
+            "height": 280,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting heure_supp",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting masse_salariale_total",
+          "size": {
+            "height": 184,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting mvtstoPharmacie_vente",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting nombre_de_lit_par_chambre_par_clinique",
+          "size": {
+            "height": 232,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting occupation",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting prelevement",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting prime",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting radiology",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting remise_Ajustement",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting responsable_organisme",
+          "size": {
+            "height": 136,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting salaire",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting Surgery_bloc",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting tab_recouvrement",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting transfert",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting tresorerie1",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting V_hospitalise",
+          "size": {
+            "height": 160,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "service",
+          "size": {
+            "height": 136,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "specialité",
+          "size": {
+            "height": 160,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "speciality",
+          "size": {
+            "height": 208,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "Table_of_selectionRV",
+          "size": {
+            "height": 160,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "Time intelligence",
+          "size": {
+            "height": 136,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "UnionAchat_Consomme",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "service_paie",
+          "size": {
+            "height": 208,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting detail_recouvrement avance",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -1,
+            "y": -1
+          },
+          "nodeIndex": "reporting admission",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "reporting MvtstoBlocPH",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "reporting mvtstoPharmacie_vente_SB",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "reporting interv",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "reporting pharmacie_externe",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "reporting pharmacie_externe_EB",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "reporting clfactureBlocPH",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "reporting pharmacie_service",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "medecin_bloc",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "DATEFACT",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Medecin_PhBloc",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "recouv recouvrement (2)",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "MoisArabe",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "reporting charge_service",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Toutes les tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 1,
+      "scrollPosition": {
+        "x": 12,
+        "y": 1364
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 517.3,
+            "y": 1017.6
+          },
+          "nodeIndex": "Conv",
+          "size": {
+            "height": 198,
+            "width": 238
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 1328.4,
+            "y": 915.6
+          },
+          "nodeIndex": "Dates",
+          "size": {
+            "height": 213,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 717.2,
+            "y": 0
+          },
+          "nodeIndex": "ORDERCENTER",
+          "size": {
+            "height": 192,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 485.8
+          },
+          "nodeIndex": "budget",
+          "size": {
+            "height": 225,
+            "width": 238
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 278.7,
+            "y": 13
+          },
+          "nodeIndex": "centre de profit",
+          "size": {
+            "height": 179,
+            "width": 238
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 416.6,
+            "y": 370.6
+          },
+          "nodeIndex": "famille de prestations",
+          "size": {
+            "height": 194,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 585.1,
+            "y": 1739
+          },
+          "nodeIndex": "medecin",
+          "size": {
+            "height": 240,
+            "width": 308
+          },
+          "zIndex": 18
+        },
+        {
+          "location": {
+            "x": 570.1,
+            "y": 801.4
+          },
+          "nodeIndex": "nationality",
+          "size": {
+            "height": 198,
+            "width": 238
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 997.6,
+            "y": 977.2
+          },
+          "nodeIndex": "nature admission",
+          "size": {
+            "height": 198,
+            "width": 238
+          },
+          "zIndex": 11
+        },
+        {
+          "location": {
+            "x": 829.1,
+            "y": 461.6
+          },
+          "nodeIndex": "reporting clfacture_consolide_table",
+          "size": {
+            "height": 337,
+            "width": 234
+          },
+          "zIndex": 12
+        },
+        {
+          "location": {
+            "x": 1962.5,
+            "y": 263.9
+          },
+          "nodeIndex": "reporting nombre_de_lit_par_chambre_par_clinique",
+          "size": {
+            "height": 245,
+            "width": 354
+          },
+          "zIndex": 13
+        },
+        {
+          "location": {
+            "x": 1632.1,
+            "y": 916.2
+          },
+          "nodeIndex": "reporting occupation",
+          "size": {
+            "height": 192.73833671399592,
+            "width": 270.45436105476665
+          },
+          "zIndex": 14
+        },
+        {
+          "location": {
+            "x": 1410.5,
+            "y": 567.9
+          },
+          "nodeIndex": "reporting radiology",
+          "size": {
+            "height": 341,
+            "width": 238
+          },
+          "zIndex": 15
+        },
+        {
+          "location": {
+            "x": 2080.6,
+            "y": 687.5
+          },
+          "nodeIndex": "service",
+          "size": {
+            "height": 192,
+            "width": 234
+          },
+          "zIndex": 16
+        },
+        {
+          "location": {
+            "x": 1062.1,
+            "y": 1619.5
+          },
+          "nodeIndex": "speciality",
+          "size": {
+            "height": 182,
+            "width": 261
+          },
+          "zIndex": 17
+        },
+        {
+          "location": {
+            "x": 355.7,
+            "y": 2157.5
+          },
+          "nodeIndex": "budget_par_medecin_reali",
+          "size": {
+            "height": 232,
+            "width": 234
+          },
+          "zIndex": 19
+        },
+        {
+          "location": {
+            "x": 660.4,
+            "y": 1430.2
+          },
+          "nodeIndex": "budget_par_medecin_fac",
+          "size": {
+            "height": 232,
+            "width": 236
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 915.8,
+            "y": 1260.4
+          },
+          "nodeIndex": "reporting admission",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 1304.4,
+            "y": 1237.1
+          },
+          "nodeIndex": "reporting remise_Ajustement",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 3
+        }
+      ],
+      "name": "Revenue",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 2,
+      "scrollPosition": {
+        "x": 552,
+        "y": 251
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 786,
+            "y": 159
+          },
+          "nodeIndex": "Conv",
+          "size": {
+            "height": 264,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1447,
+            "y": 0
+          },
+          "nodeIndex": "Dates",
+          "size": {
+            "height": 149,
+            "width": 242
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 508,
+            "y": 0
+          },
+          "nodeIndex": "budget",
+          "size": {
+            "height": 217,
+            "width": 238
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 695,
+            "y": 485
+          },
+          "nodeIndex": "budget_categorie",
+          "size": {
+            "height": 198,
+            "width": 238
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 975,
+            "y": 463
+          },
+          "nodeIndex": "categorie societe",
+          "size": {
+            "height": 264,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 486,
+            "y": 266
+          },
+          "nodeIndex": "centre de profit",
+          "size": {
+            "height": 179,
+            "width": 238
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1894,
+            "y": 506
+          },
+          "nodeIndex": "recouv details_recouvrement",
+          "size": {
+            "height": 274,
+            "width": 238
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1775,
+            "y": 121
+          },
+          "nodeIndex": "recouv recouvrement",
+          "size": {
+            "height": 345,
+            "width": 242
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 58,
+            "y": 504
+          },
+          "nodeIndex": "reporting V_hospitalise",
+          "size": {
+            "height": 160,
+            "width": 238
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1293,
+            "y": 291
+          },
+          "nodeIndex": "reporting collection",
+          "size": {
+            "height": 411,
+            "width": 328
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 74,
+            "y": 247
+          },
+          "nodeIndex": "reporting dossier_instance",
+          "size": {
+            "height": 217,
+            "width": 298
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 190,
+            "y": 9
+          },
+          "nodeIndex": "reporting etat_dossier",
+          "size": {
+            "height": 198,
+            "width": 238
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1060,
+            "y": 14
+          },
+          "nodeIndex": "reporting responsable_organisme",
+          "size": {
+            "height": 246,
+            "width": 326
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 336,
+            "y": 504
+          },
+          "nodeIndex": "reporting tab_recouvrement",
+          "size": {
+            "height": 337,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Recouvrement",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 3,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 320.85958513825113,
+            "y": 385.91575108295064
+          },
+          "nodeIndex": "Dates",
+          "size": {
+            "height": 288,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 415,
+            "y": 4
+          },
+          "nodeIndex": "reporting achat_pharmacie",
+          "size": {
+            "height": 337,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 765.28937770737673,
+            "y": 344.77533622120183
+          },
+          "nodeIndex": "reporting mvtstoPharmacie_vente",
+          "size": {
+            "height": 337,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 399.59645543199736,
+            "y": 738.30707772462085
+          },
+          "nodeIndex": "reporting prelevement",
+          "size": {
+            "height": 337,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 141,
+            "y": 0
+          },
+          "nodeIndex": "reporting transfert",
+          "size": {
+            "height": 337,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 751.8681331221303,
+            "y": 721.77533622120177
+          },
+          "nodeIndex": "speciality",
+          "size": {
+            "height": 240,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 733.26556872696642,
+            "y": 64.775336221201826
+          },
+          "nodeIndex": "centre de profit",
+          "size": {
+            "height": 240,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "pharmacie",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 4,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 0,
+            "y": 401
+          },
+          "nodeIndex": "Dates",
+          "size": {
+            "height": 217,
+            "width": 238
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1490.531,
+            "y": 456
+          },
+          "nodeIndex": "UnionAchat_Consomme",
+          "size": {
+            "height": 337,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1212.531,
+            "y": 525.981
+          },
+          "nodeIndex": "famille des articles",
+          "size": {
+            "height": 141,
+            "width": 238
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 165.675,
+            "y": 1050.74
+          },
+          "nodeIndex": "recouv recouvrement_payant",
+          "size": {
+            "height": 341,
+            "width": 309
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1073.97,
+            "y": 202.002
+          },
+          "nodeIndex": "reporting Achat_consomme",
+          "size": {
+            "height": 255,
+            "width": 238
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 630.123,
+            "y": 829.779
+          },
+          "nodeIndex": "reporting Ajust_maj_rem",
+          "size": {
+            "height": 278,
+            "width": 297
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 360.293,
+            "y": 663.461
+          },
+          "nodeIndex": "reporting CTImpayer",
+          "size": {
+            "height": 331,
+            "width": 238
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1334.5716594968098,
+            "y": 882.42326416698472
+          },
+          "nodeIndex": "reporting Surgery_bloc",
+          "size": {
+            "height": 312,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 934.531,
+            "y": 553.779
+          },
+          "nodeIndex": "reporting remise_Ajustement",
+          "size": {
+            "height": 236,
+            "width": 238
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Rapport d'activité",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 5,
+      "scrollPosition": {
+        "x": 0,
+        "y": 694
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 451.5,
+            "y": 955.2
+          },
+          "nodeIndex": "Dates",
+          "size": {
+            "height": 280,
+            "width": 234
+          },
+          "zIndex": 5
+        }
+      ],
+      "name": "GMAO",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 6,
+      "scrollPosition": {
+        "x": 369,
+        "y": 308
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 103.8,
+            "y": 0
+          },
+          "nodeIndex": "reporting MvtstoBlocPH",
+          "size": {
+            "height": 300,
+            "width": 257
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 576.9,
+            "y": 726.4
+          },
+          "nodeIndex": "reporting interv",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 481.5,
+            "y": 490.1
+          },
+          "nodeIndex": "reporting clfactureBlocPH",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 932.7,
+            "y": 1030.3
+          },
+          "nodeIndex": "medecin",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 421.2,
+            "y": 1149
+          },
+          "nodeIndex": "Dates",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 1639.2
+          },
+          "nodeIndex": "reporting pharmacie_service",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 310.6,
+            "y": 684.3
+          },
+          "nodeIndex": "reporting mvtstoPharmacie_vente_SB",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 1001,
+            "y": 406.5
+          },
+          "nodeIndex": "reporting pharmacie_externe_EB",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 103.6,
+            "y": 1147.4
+          },
+          "nodeIndex": "reporting mvtstoPharmacie_vente",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 729.5,
+            "y": 1398
+          },
+          "nodeIndex": "reporting clfacture_consolide_table",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1166.6,
+            "y": 1304.2
+          },
+          "nodeIndex": "speciality",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1781,
+            "y": 689.9
+          },
+          "nodeIndex": "budget_par_medecin_reali",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1356.8,
+            "y": 799.2
+          },
+          "nodeIndex": "budget_par_medecin_fac",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 671.4,
+            "y": 1075.8
+          },
+          "nodeIndex": "reporting admission",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 247.3,
+            "y": 1542.4
+          },
+          "nodeIndex": "reporting remise_Ajustement",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 887.2941176470589,
+            "y": 830.2941176470589
+          },
+          "nodeIndex": "medecin_bloc",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 711.2941176470589,
+            "y": 475.70588235294122
+          },
+          "nodeIndex": "Medecin_PhBloc",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Disposition 6",
+      "zoomValue": 77.272727272727266,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 7,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 423.6,
+            "y": 0
+          },
+          "nodeIndex": "DATEFACT",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 847.2,
+            "y": 257
+          },
+          "nodeIndex": "recouv recouvrement_payant",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 19.3
+          },
+          "nodeIndex": "recouv recouvrement",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 545.6,
+            "y": 230.9
+          },
+          "nodeIndex": "Dates",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Disposition 1",
+      "zoomValue": 84.833333333333343,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 8,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 1127.1,
+            "y": 688.6
+          },
+          "nodeIndex": "specialité",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1168.6,
+            "y": 103.8
+          },
+          "nodeIndex": "Medecin_PhBloc",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 549.258823529412,
+            "y": 320.31764705882347
+          },
+          "nodeIndex": "nationality",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 405.6,
+            "y": 110.8
+          },
+          "nodeIndex": "nature admission",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 811.2,
+            "y": 217
+          },
+          "nodeIndex": "reporting clfacture_consolide_table",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "nodeIndex": "reporting admission",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Disposition 2",
+      "zoomValue": 70.833333333333343,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 9,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 495,
+            "y": 138
+          },
+          "nodeIndex": "Dates",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": -41,
+            "y": 271
+          },
+          "nodeIndex": "MoisArabe",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Layout 1",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 10,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 49.797570850202419,
+            "y": 0
+          },
+          "nodeIndex": "reporting charge_service",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 361,
+            "y": 48
+          },
+          "nodeIndex": "Dates",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Layout 2",
+      "zoomValue": 82.333333333333343,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Layout 2",
+  "defaultDiagram": "Toutes les tables"
+}
