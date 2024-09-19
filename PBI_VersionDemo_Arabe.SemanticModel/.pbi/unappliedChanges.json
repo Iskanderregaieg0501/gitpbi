@@ -1,0 +1,1099 @@
+{
+  "version": "1.0",
+  "conceptualSchemaSettings": {},
+  "queries": [
+    {
+      "name": "reporting clfacture_consolide_table",
+      "lineageTag": "df245884-eaf3-416e-adb1-90339ba52b38",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_clfacture_consolide_table = Source{[Schema=\"reporting\",Item=\"clfacture_consolide_table\"]}[Data],",
+        "    #\"Valeur remplacée\" = Table.ReplaceValue(reporting_clfacture_consolide_table,\"  \",\" \",Replacer.ReplaceText,{\"famille_prestation\"}),",
+        "    #\"Texte en majuscules\" = Table.TransformColumns(#\"Valeur remplacée\",{{\"famille\", Text.Upper, type text}}),",
+        "    #\"Replaced Value\" = Table.ReplaceValue(#\"Texte en majuscules\",null,\"UNKNOWN\",Replacer.ReplaceValue,{\"NomMed\"}),",
+        "    #\"Filtered Rows\" = Table.SelectRows(#\"Replaced Value\", each true),",
+        "    #\"Replaced Value1\" = Table.ReplaceValue(#\"Filtered Rows\",null,\"UNKNOWN\",Replacer.ReplaceValue,{\"CodMed\"}),",
+        "    #\"Replaced Value2\" = Table.ReplaceValue(#\"Replaced Value1\",null,\"UNKNOWN\",Replacer.ReplaceValue,{\"CodSpec\"}),",
+        "    #\"Replaced Value3\" = Table.ReplaceValue(#\"Replaced Value2\",null,\"UNKNOWN\",Replacer.ReplaceValue,{\"LibSpec\"}),",
+        "    #\"Replaced Value4\" = Table.ReplaceValue(#\"Replaced Value3\",\"SEJOUR\",\"إقامة\",Replacer.ReplaceText,{\"famille_prestation\"}),",
+        "    #\"Replaced Value5\" = Table.ReplaceValue(#\"Replaced Value4\",\"GAZ MEDICAUX\",\"غازات طبية\",Replacer.ReplaceText,{\"famille_prestation\"}),",
+        "    #\"Replaced Value6\" = Table.ReplaceValue(#\"Replaced Value5\",\"PHARMACIE\",\"صيدلية\",Replacer.ReplaceText,{\"famille_prestation\"}),",
+        "    #\"Replaced Value7\" = Table.ReplaceValue(#\"Replaced Value6\",\"EXAMENS RADIOLOGIE\",\"كشف بالأشعة\",Replacer.ReplaceText,{\"famille_prestation\"}),",
+        "    #\"Replaced Value8\" = Table.ReplaceValue(#\"Replaced Value7\",\"EXPLORATIONS CARDIAQUES\",\"أبحاث القلب\",Replacer.ReplaceText,{\"famille_prestation\"}),",
+        "    #\"Replaced Value9\" = Table.ReplaceValue(#\"Replaced Value8\",\"SALLE D'OPERATION\",\"غرفة العمليات\",Replacer.ReplaceText,{\"famille_prestation\"}),",
+        "    #\"Replaced Value10\" = Table.ReplaceValue(#\"Replaced Value9\",\"PRESTATION\",\"خدمات\",Replacer.ReplaceText,{\"famille_prestation\"}),",
+        "    #\"Replaced Value11\" = Table.ReplaceValue(#\"Replaced Value10\",\"APPAREILLAGE MEDICAL\",\"أجهزة طبية\",Replacer.ReplaceText,{\"famille_prestation\"}),",
+        "    #\"Replaced Value12\" = Table.ReplaceValue(#\"Replaced Value11\",\"إقامة ACCOMPAGANT\",\"إقامة مرافقة\",Replacer.ReplaceText,{\"famille_prestation\"}),",
+        "    #\"Replaced Value13\" = Table.ReplaceValue(#\"Replaced Value12\",\"EXTRAS\",\"إضافات\",Replacer.ReplaceText,{\"famille_prestation\"}),",
+        "    #\"Replaced Value14\" = Table.ReplaceValue(#\"Replaced Value13\",\"CATHETERISME\",\"قسطرة قلبية\",Replacer.ReplaceText,{\"famille_prestation\"}),",
+        "    #\"Replaced Value15\" = Table.ReplaceValue(#\"Replaced Value14\",\"NUTRITION\",\"تَغذِيَة\",Replacer.ReplaceText,{\"famille_prestation\"}),",
+        "    #\"Replaced Value16\" = Table.ReplaceValue(#\"Replaced Value15\",\"EXAMEN OPHTALMO\",\"كشف طب العيون\",Replacer.ReplaceText,{\"famille_prestation\"}),",
+        "    #\"Replaced Value17\" = Table.ReplaceValue(#\"Replaced Value16\",\"AJUSTEMENT\",\"تعديل\",Replacer.ReplaceText,{\"famille_prestation\"}),",
+        "    #\"Replaced Value18\" = Table.ReplaceValue(#\"Replaced Value17\",\"NEUROPHYSIOLOGIE\",\"أعصاب\",Replacer.ReplaceText,{\"famille_prestation\"}),",
+        "    #\"Replaced Value19\" = Table.ReplaceValue(#\"Replaced Value18\",\"URODYNAMIQUE\",\"الاستكشاف الديناميكي للحوض\",Replacer.ReplaceText,{\"famille_prestation\"}),",
+        "    #\"Replaced Value20\" = Table.ReplaceValue(#\"Replaced Value19\",\"LABORATOIRE\",\"مختبر\",Replacer.ReplaceText,{\"famille_prestation\"}),",
+        "    #\"Replaced Value21\" = Table.ReplaceValue(#\"Replaced Value20\",\"TUNISIENNE\",\"تونسية\",Replacer.ReplaceText,{\"nationalite_clinique\"}),",
+        "    #\"Replaced Value22\" = Table.ReplaceValue(#\"Replaced Value21\",\"FRANCAISE\",\"فرنسية\",Replacer.ReplaceText,{\"nationalite_clinique\"}),",
+        "    #\"Replaced Value23\" = Table.ReplaceValue(#\"Replaced Value22\",\"LIBYENNE\",\"ليبية\",Replacer.ReplaceText,{\"nationalite_clinique\"}),",
+        "    #\"Replaced Value24\" = Table.ReplaceValue(#\"Replaced Value23\",\"MAURITANIENNE\",\"موريتانية\",Replacer.ReplaceText,{\"nationalite_clinique\"}),",
+        "    #\"Replaced Value25\" = Table.ReplaceValue(#\"Replaced Value24\",\"CAMEROUNAISE\",\"كاميرونية\",Replacer.ReplaceText,{\"nationalite_clinique\"}),",
+        "    #\"Replaced Value26\" = Table.ReplaceValue(#\"Replaced Value25\",\"SENEGALAISE\",\"سنغالية\",Replacer.ReplaceText,{\"nationalite_clinique\"}),",
+        "    #\"Replaced Value27\" = Table.ReplaceValue(#\"Replaced Value26\",\"TURQUE\",\"تركية\",Replacer.ReplaceText,{\"nationalite_clinique\"}),",
+        "    #\"Replaced Value28\" = Table.ReplaceValue(#\"Replaced Value27\",\"GUINEENNE\",\"غينية\",Replacer.ReplaceText,{\"nationalite_clinique\"}),",
+        "    #\"Replaced Value29\" = Table.ReplaceValue(#\"Replaced Value28\",\"NIGERIANE\",\"نيجيرية\",Replacer.ReplaceText,{\"nationalite_clinique\"}),",
+        "    #\"Replaced Value30\" = Table.ReplaceValue(#\"Replaced Value29\",\"MAROCAINE\",\"مغربية\",Replacer.ReplaceText,{\"nationalite_clinique\"}),",
+        "    #\"Replaced Value31\" = Table.ReplaceValue(#\"Replaced Value30\",\"CONGOLAISE\",\"كونغولية\",Replacer.ReplaceText,{\"nationalite_clinique\"}),",
+        "    #\"Replaced Value32\" = Table.ReplaceValue(#\"Replaced Value31\",\"AMERICAINE\",\"أمريكية\",Replacer.ReplaceText,{\"nationalite_clinique\"}),",
+        "    #\"Replaced Value33\" = Table.ReplaceValue(#\"Replaced Value32\",\"ALGERIENNE\",\"جزائرية\",Replacer.ReplaceText,{\"nationalite_clinique\"}),",
+        "    #\"Replaced Value34\" = Table.ReplaceValue(#\"Replaced Value33\",\"SUISSE\",\"سويسية\",Replacer.ReplaceText,{\"nationalite_clinique\"}),",
+        "    #\"Replaced Value35\" = Table.ReplaceValue(#\"Replaced Value34\",\"IRLANDAISE\",\"الأيرلندية\",Replacer.ReplaceText,{\"nationalite_clinique\"}),",
+        "    #\"Replaced Value36\" = Table.ReplaceValue(#\"Replaced Value35\",\"ITALIENNE\",\"إيطالية\",Replacer.ReplaceText,{\"nationalite_clinique\"}),",
+        "    #\"Replaced Value37\" = Table.ReplaceValue(#\"Replaced Value36\",\"BELGE\",\"بلجيكية\",Replacer.ReplaceText,{\"nationalite_clinique\"}),",
+        "    #\"Replaced Value38\" = Table.ReplaceValue(#\"Replaced Value37\",\"SAOUDIENNE\",\"سعودية\",Replacer.ReplaceText,{\"nationalite_clinique\"}),",
+        "    #\"Replaced Value39\" = Table.ReplaceValue(#\"Replaced Value38\",\"MALIENNE\",\"مالية\",Replacer.ReplaceText,{\"nationalite_clinique\"}),",
+        "    #\"Replaced Value40\" = Table.ReplaceValue(#\"Replaced Value39\",\"QATARIENNE\",\"قطرية\",Replacer.ReplaceText,{\"nationalite_clinique\"}),",
+        "    #\"Replaced Value41\" = Table.ReplaceValue(#\"Replaced Value40\",\"PORTUGAISE\",\"برتغالية\",Replacer.ReplaceText,{\"nationalite_clinique\"}),",
+        "    #\"Replaced Value42\" = Table.ReplaceValue(#\"Replaced Value41\",\"NIGERIENNE\",\"نيجيرية\",Replacer.ReplaceText,{\"nationalite_clinique\"}),",
+        "    #\"Replaced Value43\" = Table.ReplaceValue(#\"Replaced Value42\",\"LUXEMBOURGEOISE\",\"لوكسمبورغ\",Replacer.ReplaceText,{\"nationalite_clinique\"}),",
+        "    #\"Replaced Value44\" = Table.ReplaceValue(#\"Replaced Value43\",\"CENTRAFRICAINE\",\"وسط افريقيا\",Replacer.ReplaceText,{\"nationalite_clinique\"}),",
+        "    #\"Replaced Value45\" = Table.ReplaceValue(#\"Replaced Value44\",\"GABONAISE\",\"جابونية\",Replacer.ReplaceText,{\"nationalite_clinique\"}),",
+        "    #\"Replaced Value46\" = Table.ReplaceValue(#\"Replaced Value45\",\"BRESILIENNE\",\"برازيلية\",Replacer.ReplaceText,{\"nationalite_clinique\"}),",
+        "    #\"Replaced Value47\" = Table.ReplaceValue(#\"Replaced Value46\",\"BRITANNIQUE\",\"بريطانية\",Replacer.ReplaceText,{\"nationalite_clinique\"}),",
+        "    #\"Added Conditional Column\" = Table.AddColumn(#\"Replaced Value47\", \"Custom\", each if [famille] = \"PAYANT\" then \"مريض نقدي\" else \"XXXXX\"),",
+        "    #\"Replaced Value48\" = Table.ReplaceValue(#\"Added Conditional Column\",\"CARDIOLOGIE\",\"طب القلب\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value49\" = Table.ReplaceValue(#\"Replaced Value48\",\"CHIRURGIE ESTHETIQUE\",\"عملية تجميل\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value50\" = Table.ReplaceValue(#\"Replaced Value49\",\"MALADIES INFECTIEUSES\",\"أمراض معدية\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value51\" = Table.ReplaceValue(#\"Replaced Value50\",\"RADIOLOGIE\",\"الأشعة\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value52\" = Table.ReplaceValue(#\"Replaced Value51\",\"ANGIOLOGIE\",\"طب الأوعية\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value53\" = Table.ReplaceValue(#\"Replaced Value52\",\"ANESTHESIE REANIMATION\",\"التخدير والإنعاش\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value54\" = Table.ReplaceValue(#\"Replaced Value53\",\"PNEUMOLOGIE\",\"أمراض الرئة\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value55\" = Table.ReplaceValue(#\"Replaced Value54\",\"CHIRURGIE GENERALE\",\"الجراحة العامة\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value56\" = Table.ReplaceValue(#\"Replaced Value55\",\"CHIRURGIE CARDIAQUE\",\"عملية قلب\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value57\" = Table.ReplaceValue(#\"Replaced Value56\",\"GENERALISTE\",\"طبيب عام\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value58\" = Table.ReplaceValue(#\"Replaced Value57\",\"MEDECINE GENERALE\",\"طب عام\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value59\" = Table.ReplaceValue(#\"Replaced Value58\",\"GYNECOLOGIE OBESTETRIQUE\",\"أمراض النساء والتوليد\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value60\" = Table.ReplaceValue(#\"Replaced Value59\",\"GASTRO ENTEROLOGIE\",\"أمراض الجهاز الهضمي\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value61\" = Table.ReplaceValue(#\"Replaced Value60\",\"NEUROCHIRURGIE\",\"جراحة الاعصاب\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value62\" = Table.ReplaceValue(#\"Replaced Value61\",\"CHIRURGIE DE LA MAIN\",\"جراحة اليد\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value63\" = Table.ReplaceValue(#\"Replaced Value62\",\"NUTRITIONNISTE\",\"اخصائي تغذيه\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value64\" = Table.ReplaceValue(#\"Replaced Value63\",\"MEDECINE INTERNE\",\"الطب الباطني\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value65\" = Table.ReplaceValue(#\"Replaced Value64\",\"CARCINOLOGIE MEDICALE\",\"السرطانات الطبية\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value66\" = Table.ReplaceValue(#\"Replaced Value65\",\"OPHTALMOLOGIE\",\"طب العيون\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value67\" = Table.ReplaceValue(#\"Replaced Value66\",\"CHIRUGIE ORTHOPEDIE\",\"جراحة العظام\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value68\" = Table.ReplaceValue(#\"Replaced Value67\",\"CHIRURGIE MAXILLO FACIALE\",\"جراحة الوجه والفكين\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value69\" = Table.ReplaceValue(#\"Replaced Value68\",\"CHIRURGIE THORACIQUE\",\"جراحة الصدر\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value70\" = Table.ReplaceValue(#\"Replaced Value69\",\"UROLOGIE\",\"المسالك البولية\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value71\" = Table.ReplaceValue(#\"Replaced Value70\",\"RHUMATOLOGIE\",\"الروماتيزم\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value72\" = Table.ReplaceValue(#\"Replaced Value71\",\"ORTHOPEDIE\",\"طب العظام\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value73\" = Table.ReplaceValue(#\"Replaced Value72\",\"ORL\",\"الأنف والأذن والحنجرة\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value74\" = Table.ReplaceValue(#\"Replaced Value73\",\"NEUROLOGIE\",\"طب الأعصاب\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value75\" = Table.ReplaceValue(#\"Replaced Value74\",\"NÉPHROLOGIE\",\"أمراض الكلى\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value76\" = Table.ReplaceValue(#\"Replaced Value75\",\"LABO D'ANALYSES BILOLOGIQUE\",\"معمل التحليل البيولوجي\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value77\" = Table.ReplaceValue(#\"Replaced Value76\",\"CHIRURGIEN UROLOGUE\",\"جراحة المسالك البولية\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value78\" = Table.ReplaceValue(#\"Replaced Value77\",\"CHIRURGIE PEDIATRIQUE\",\"جراحة الأطفال\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value79\" = Table.ReplaceValue(#\"Replaced Value78\",\"CHIRURGIE CARCINOLOGIQUE\",\"الجراحة السرطانية\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value80\" = Table.ReplaceValue(#\"Replaced Value79\",\"CHIRURGIE NEUROLOGIE\",\"جراحة الأعصاب\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value81\" = Table.ReplaceValue(#\"Replaced Value80\",\"CENTRE الأشعة\",\"مركز الأشعة\",Replacer.ReplaceText,{\"LibSpec\"}),",
+        "    #\"Replaced Value82\" = Table.ReplaceValue(#\"Replaced Value81\",\"NEPHROLOGIE\",\"أمراض الكلى\",Replacer.ReplaceText,{\"LibSpec\"})",
+        "in",
+        "    #\"Replaced Value82\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_clfacture_consolide_table = Source{[Schema=\\\"reporting\\\",Item=\\\"clfacture_consolide_table\\\"]}[Data],\\r\\n    #\\\"Valeur remplacée\\\" = Table.ReplaceValue(reporting_clfacture_consolide_table,\\\"  \\\",\\\" \\\",Replacer.ReplaceText,{\\\"famille_prestation\\\"}),\\r\\n    #\\\"Texte en majuscules\\\" = Table.TransformColumns(#\\\"Valeur remplacée\\\",{{\\\"famille\\\", Text.Upper, type text}}),\\r\\n    #\\\"Replaced Value\\\" = Table.ReplaceValue(#\\\"Texte en majuscules\\\",null,\\\"UNKNOWN\\\",Replacer.ReplaceValue,{\\\"NomMed\\\"}),\\r\\n    #\\\"Filtered Rows\\\" = Table.SelectRows(#\\\"Replaced Value\\\", each true),\\r\\n    #\\\"Replaced Value1\\\" = Table.ReplaceValue(#\\\"Filtered Rows\\\",null,\\\"UNKNOWN\\\",Replacer.ReplaceValue,{\\\"CodMed\\\"}),\\r\\n    #\\\"Replaced Value2\\\" = Table.ReplaceValue(#\\\"Replaced Value1\\\",null,\\\"UNKNOWN\\\",Replacer.ReplaceValue,{\\\"CodSpec\\\"}),\\r\\n    #\\\"Replaced Value3\\\" = Table.ReplaceValue(#\\\"Replaced Value2\\\",null,\\\"UNKNOWN\\\",Replacer.ReplaceValue,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value4\\\" = Table.ReplaceValue(#\\\"Replaced Value3\\\",\\\"SEJOUR\\\",\\\"إقامة\\\",Replacer.ReplaceText,{\\\"famille_prestation\\\"}),\\r\\n    #\\\"Replaced Value5\\\" = Table.ReplaceValue(#\\\"Replaced Value4\\\",\\\"GAZ MEDICAUX\\\",\\\"غازات طبية\\\",Replacer.ReplaceText,{\\\"famille_prestation\\\"}),\\r\\n    #\\\"Replaced Value6\\\" = Table.ReplaceValue(#\\\"Replaced Value5\\\",\\\"PHARMACIE\\\",\\\"صيدلية\\\",Replacer.ReplaceText,{\\\"famille_prestation\\\"}),\\r\\n    #\\\"Replaced Value7\\\" = Table.ReplaceValue(#\\\"Replaced Value6\\\",\\\"EXAMENS RADIOLOGIE\\\",\\\"كشف بالأشعة\\\",Replacer.ReplaceText,{\\\"famille_prestation\\\"}),\\r\\n    #\\\"Replaced Value8\\\" = Table.ReplaceValue(#\\\"Replaced Value7\\\",\\\"EXPLORATIONS CARDIAQUES\\\",\\\"أبحاث القلب\\\",Replacer.ReplaceText,{\\\"famille_prestation\\\"}),\\r\\n    #\\\"Replaced Value9\\\" = Table.ReplaceValue(#\\\"Replaced Value8\\\",\\\"SALLE D'OPERATION\\\",\\\"غرفة العمليات\\\",Replacer.ReplaceText,{\\\"famille_prestation\\\"}),\\r\\n    #\\\"Replaced Value10\\\" = Table.ReplaceValue(#\\\"Replaced Value9\\\",\\\"PRESTATION\\\",\\\"خدمات\\\",Replacer.ReplaceText,{\\\"famille_prestation\\\"}),\\r\\n    #\\\"Replaced Value11\\\" = Table.ReplaceValue(#\\\"Replaced Value10\\\",\\\"APPAREILLAGE MEDICAL\\\",\\\"أجهزة طبية\\\",Replacer.ReplaceText,{\\\"famille_prestation\\\"}),\\r\\n    #\\\"Replaced Value12\\\" = Table.ReplaceValue(#\\\"Replaced Value11\\\",\\\"إقامة ACCOMPAGANT\\\",\\\"إقامة مرافقة\\\",Replacer.ReplaceText,{\\\"famille_prestation\\\"}),\\r\\n    #\\\"Replaced Value13\\\" = Table.ReplaceValue(#\\\"Replaced Value12\\\",\\\"EXTRAS\\\",\\\"إضافات\\\",Replacer.ReplaceText,{\\\"famille_prestation\\\"}),\\r\\n    #\\\"Replaced Value14\\\" = Table.ReplaceValue(#\\\"Replaced Value13\\\",\\\"CATHETERISME\\\",\\\"قسطرة قلبية\\\",Replacer.ReplaceText,{\\\"famille_prestation\\\"}),\\r\\n    #\\\"Replaced Value15\\\" = Table.ReplaceValue(#\\\"Replaced Value14\\\",\\\"NUTRITION\\\",\\\"تَغذِيَة\\\",Replacer.ReplaceText,{\\\"famille_prestation\\\"}),\\r\\n    #\\\"Replaced Value16\\\" = Table.ReplaceValue(#\\\"Replaced Value15\\\",\\\"EXAMEN OPHTALMO\\\",\\\"كشف طب العيون\\\",Replacer.ReplaceText,{\\\"famille_prestation\\\"}),\\r\\n    #\\\"Replaced Value17\\\" = Table.ReplaceValue(#\\\"Replaced Value16\\\",\\\"AJUSTEMENT\\\",\\\"تعديل\\\",Replacer.ReplaceText,{\\\"famille_prestation\\\"}),\\r\\n    #\\\"Replaced Value18\\\" = Table.ReplaceValue(#\\\"Replaced Value17\\\",\\\"NEUROPHYSIOLOGIE\\\",\\\"أعصاب\\\",Replacer.ReplaceText,{\\\"famille_prestation\\\"}),\\r\\n    #\\\"Replaced Value19\\\" = Table.ReplaceValue(#\\\"Replaced Value18\\\",\\\"URODYNAMIQUE\\\",\\\"الاستكشاف الديناميكي للحوض\\\",Replacer.ReplaceText,{\\\"famille_prestation\\\"}),\\r\\n    #\\\"Replaced Value20\\\" = Table.ReplaceValue(#\\\"Replaced Value19\\\",\\\"LABORATOIRE\\\",\\\"مختبر\\\",Replacer.ReplaceText,{\\\"famille_prestation\\\"}),\\r\\n    #\\\"Replaced Value21\\\" = Table.ReplaceValue(#\\\"Replaced Value20\\\",\\\"TUNISIENNE\\\",\\\"تونسية\\\",Replacer.ReplaceText,{\\\"nationalite_clinique\\\"}),\\r\\n    #\\\"Replaced Value22\\\" = Table.ReplaceValue(#\\\"Replaced Value21\\\",\\\"FRANCAISE\\\",\\\"فرنسية\\\",Replacer.ReplaceText,{\\\"nationalite_clinique\\\"}),\\r\\n    #\\\"Replaced Value23\\\" = Table.ReplaceValue(#\\\"Replaced Value22\\\",\\\"LIBYENNE\\\",\\\"ليبية\\\",Replacer.ReplaceText,{\\\"nationalite_clinique\\\"}),\\r\\n    #\\\"Replaced Value24\\\" = Table.ReplaceValue(#\\\"Replaced Value23\\\",\\\"MAURITANIENNE\\\",\\\"موريتانية\\\",Replacer.ReplaceText,{\\\"nationalite_clinique\\\"}),\\r\\n    #\\\"Replaced Value25\\\" = Table.ReplaceValue(#\\\"Replaced Value24\\\",\\\"CAMEROUNAISE\\\",\\\"كاميرونية\\\",Replacer.ReplaceText,{\\\"nationalite_clinique\\\"}),\\r\\n    #\\\"Replaced Value26\\\" = Table.ReplaceValue(#\\\"Replaced Value25\\\",\\\"SENEGALAISE\\\",\\\"سنغالية\\\",Replacer.ReplaceText,{\\\"nationalite_clinique\\\"}),\\r\\n    #\\\"Replaced Value27\\\" = Table.ReplaceValue(#\\\"Replaced Value26\\\",\\\"TURQUE\\\",\\\"تركية\\\",Replacer.ReplaceText,{\\\"nationalite_clinique\\\"}),\\r\\n    #\\\"Replaced Value28\\\" = Table.ReplaceValue(#\\\"Replaced Value27\\\",\\\"GUINEENNE\\\",\\\"غينية\\\",Replacer.ReplaceText,{\\\"nationalite_clinique\\\"}),\\r\\n    #\\\"Replaced Value29\\\" = Table.ReplaceValue(#\\\"Replaced Value28\\\",\\\"NIGERIANE\\\",\\\"نيجيرية\\\",Replacer.ReplaceText,{\\\"nationalite_clinique\\\"}),\\r\\n    #\\\"Replaced Value30\\\" = Table.ReplaceValue(#\\\"Replaced Value29\\\",\\\"MAROCAINE\\\",\\\"مغربية\\\",Replacer.ReplaceText,{\\\"nationalite_clinique\\\"}),\\r\\n    #\\\"Replaced Value31\\\" = Table.ReplaceValue(#\\\"Replaced Value30\\\",\\\"CONGOLAISE\\\",\\\"كونغولية\\\",Replacer.ReplaceText,{\\\"nationalite_clinique\\\"}),\\r\\n    #\\\"Replaced Value32\\\" = Table.ReplaceValue(#\\\"Replaced Value31\\\",\\\"AMERICAINE\\\",\\\"أمريكية\\\",Replacer.ReplaceText,{\\\"nationalite_clinique\\\"}),\\r\\n    #\\\"Replaced Value33\\\" = Table.ReplaceValue(#\\\"Replaced Value32\\\",\\\"ALGERIENNE\\\",\\\"جزائرية\\\",Replacer.ReplaceText,{\\\"nationalite_clinique\\\"}),\\r\\n    #\\\"Replaced Value34\\\" = Table.ReplaceValue(#\\\"Replaced Value33\\\",\\\"SUISSE\\\",\\\"سويسية\\\",Replacer.ReplaceText,{\\\"nationalite_clinique\\\"}),\\r\\n    #\\\"Replaced Value35\\\" = Table.ReplaceValue(#\\\"Replaced Value34\\\",\\\"IRLANDAISE\\\",\\\"الأيرلندية\\\",Replacer.ReplaceText,{\\\"nationalite_clinique\\\"}),\\r\\n    #\\\"Replaced Value36\\\" = Table.ReplaceValue(#\\\"Replaced Value35\\\",\\\"ITALIENNE\\\",\\\"إيطالية\\\",Replacer.ReplaceText,{\\\"nationalite_clinique\\\"}),\\r\\n    #\\\"Replaced Value37\\\" = Table.ReplaceValue(#\\\"Replaced Value36\\\",\\\"BELGE\\\",\\\"بلجيكية\\\",Replacer.ReplaceText,{\\\"nationalite_clinique\\\"}),\\r\\n    #\\\"Replaced Value38\\\" = Table.ReplaceValue(#\\\"Replaced Value37\\\",\\\"SAOUDIENNE\\\",\\\"سعودية\\\",Replacer.ReplaceText,{\\\"nationalite_clinique\\\"}),\\r\\n    #\\\"Replaced Value39\\\" = Table.ReplaceValue(#\\\"Replaced Value38\\\",\\\"MALIENNE\\\",\\\"مالية\\\",Replacer.ReplaceText,{\\\"nationalite_clinique\\\"}),\\r\\n    #\\\"Replaced Value40\\\" = Table.ReplaceValue(#\\\"Replaced Value39\\\",\\\"QATARIENNE\\\",\\\"قطرية\\\",Replacer.ReplaceText,{\\\"nationalite_clinique\\\"}),\\r\\n    #\\\"Replaced Value41\\\" = Table.ReplaceValue(#\\\"Replaced Value40\\\",\\\"PORTUGAISE\\\",\\\"برتغالية\\\",Replacer.ReplaceText,{\\\"nationalite_clinique\\\"}),\\r\\n    #\\\"Replaced Value42\\\" = Table.ReplaceValue(#\\\"Replaced Value41\\\",\\\"NIGERIENNE\\\",\\\"نيجيرية\\\",Replacer.ReplaceText,{\\\"nationalite_clinique\\\"}),\\r\\n    #\\\"Replaced Value43\\\" = Table.ReplaceValue(#\\\"Replaced Value42\\\",\\\"LUXEMBOURGEOISE\\\",\\\"لوكسمبورغ\\\",Replacer.ReplaceText,{\\\"nationalite_clinique\\\"}),\\r\\n    #\\\"Replaced Value44\\\" = Table.ReplaceValue(#\\\"Replaced Value43\\\",\\\"CENTRAFRICAINE\\\",\\\"وسط افريقيا\\\",Replacer.ReplaceText,{\\\"nationalite_clinique\\\"}),\\r\\n    #\\\"Replaced Value45\\\" = Table.ReplaceValue(#\\\"Replaced Value44\\\",\\\"GABONAISE\\\",\\\"جابونية\\\",Replacer.ReplaceText,{\\\"nationalite_clinique\\\"}),\\r\\n    #\\\"Replaced Value46\\\" = Table.ReplaceValue(#\\\"Replaced Value45\\\",\\\"BRESILIENNE\\\",\\\"برازيلية\\\",Replacer.ReplaceText,{\\\"nationalite_clinique\\\"}),\\r\\n    #\\\"Replaced Value47\\\" = Table.ReplaceValue(#\\\"Replaced Value46\\\",\\\"BRITANNIQUE\\\",\\\"بريطانية\\\",Replacer.ReplaceText,{\\\"nationalite_clinique\\\"}),\\r\\n    #\\\"Added Conditional Column\\\" = Table.AddColumn(#\\\"Replaced Value47\\\", \\\"Custom\\\", each if [famille] = \\\"PAYANT\\\" then \\\"مريض نقدي\\\" else \\\"XXXXX\\\"),\\r\\n    #\\\"Replaced Value48\\\" = Table.ReplaceValue(#\\\"Added Conditional Column\\\",\\\"CARDIOLOGIE\\\",\\\"طب القلب\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value49\\\" = Table.ReplaceValue(#\\\"Replaced Value48\\\",\\\"CHIRURGIE ESTHETIQUE\\\",\\\"عملية تجميل\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value50\\\" = Table.ReplaceValue(#\\\"Replaced Value49\\\",\\\"MALADIES INFECTIEUSES\\\",\\\"أمراض معدية\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value51\\\" = Table.ReplaceValue(#\\\"Replaced Value50\\\",\\\"RADIOLOGIE\\\",\\\"الأشعة\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value52\\\" = Table.ReplaceValue(#\\\"Replaced Value51\\\",\\\"ANGIOLOGIE\\\",\\\"طب الأوعية\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value53\\\" = Table.ReplaceValue(#\\\"Replaced Value52\\\",\\\"ANESTHESIE REANIMATION\\\",\\\"التخدير والإنعاش\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value54\\\" = Table.ReplaceValue(#\\\"Replaced Value53\\\",\\\"PNEUMOLOGIE\\\",\\\"أمراض الرئة\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value55\\\" = Table.ReplaceValue(#\\\"Replaced Value54\\\",\\\"CHIRURGIE GENERALE\\\",\\\"الجراحة العامة\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value56\\\" = Table.ReplaceValue(#\\\"Replaced Value55\\\",\\\"CHIRURGIE CARDIAQUE\\\",\\\"عملية قلب\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value57\\\" = Table.ReplaceValue(#\\\"Replaced Value56\\\",\\\"GENERALISTE\\\",\\\"طبيب عام\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value58\\\" = Table.ReplaceValue(#\\\"Replaced Value57\\\",\\\"MEDECINE GENERALE\\\",\\\"طب عام\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value59\\\" = Table.ReplaceValue(#\\\"Replaced Value58\\\",\\\"GYNECOLOGIE OBESTETRIQUE\\\",\\\"أمراض النساء والتوليد\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value60\\\" = Table.ReplaceValue(#\\\"Replaced Value59\\\",\\\"GASTRO ENTEROLOGIE\\\",\\\"أمراض الجهاز الهضمي\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value61\\\" = Table.ReplaceValue(#\\\"Replaced Value60\\\",\\\"NEUROCHIRURGIE\\\",\\\"جراحة الاعصاب\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value62\\\" = Table.ReplaceValue(#\\\"Replaced Value61\\\",\\\"CHIRURGIE DE LA MAIN\\\",\\\"جراحة اليد\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value63\\\" = Table.ReplaceValue(#\\\"Replaced Value62\\\",\\\"NUTRITIONNISTE\\\",\\\"اخصائي تغذيه\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value64\\\" = Table.ReplaceValue(#\\\"Replaced Value63\\\",\\\"MEDECINE INTERNE\\\",\\\"الطب الباطني\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value65\\\" = Table.ReplaceValue(#\\\"Replaced Value64\\\",\\\"CARCINOLOGIE MEDICALE\\\",\\\"السرطانات الطبية\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value66\\\" = Table.ReplaceValue(#\\\"Replaced Value65\\\",\\\"OPHTALMOLOGIE\\\",\\\"طب العيون\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value67\\\" = Table.ReplaceValue(#\\\"Replaced Value66\\\",\\\"CHIRUGIE ORTHOPEDIE\\\",\\\"جراحة العظام\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value68\\\" = Table.ReplaceValue(#\\\"Replaced Value67\\\",\\\"CHIRURGIE MAXILLO FACIALE\\\",\\\"جراحة الوجه والفكين\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value69\\\" = Table.ReplaceValue(#\\\"Replaced Value68\\\",\\\"CHIRURGIE THORACIQUE\\\",\\\"جراحة الصدر\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value70\\\" = Table.ReplaceValue(#\\\"Replaced Value69\\\",\\\"UROLOGIE\\\",\\\"المسالك البولية\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value71\\\" = Table.ReplaceValue(#\\\"Replaced Value70\\\",\\\"RHUMATOLOGIE\\\",\\\"الروماتيزم\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value72\\\" = Table.ReplaceValue(#\\\"Replaced Value71\\\",\\\"ORTHOPEDIE\\\",\\\"طب العظام\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value73\\\" = Table.ReplaceValue(#\\\"Replaced Value72\\\",\\\"ORL\\\",\\\"الأنف والأذن والحنجرة\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value74\\\" = Table.ReplaceValue(#\\\"Replaced Value73\\\",\\\"NEUROLOGIE\\\",\\\"طب الأعصاب\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value75\\\" = Table.ReplaceValue(#\\\"Replaced Value74\\\",\\\"NÉPHROLOGIE\\\",\\\"أمراض الكلى\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value76\\\" = Table.ReplaceValue(#\\\"Replaced Value75\\\",\\\"LABO D'ANALYSES BILOLOGIQUE\\\",\\\"معمل التحليل البيولوجي\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value77\\\" = Table.ReplaceValue(#\\\"Replaced Value76\\\",\\\"CHIRURGIEN UROLOGUE\\\",\\\"جراحة المسالك البولية\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value78\\\" = Table.ReplaceValue(#\\\"Replaced Value77\\\",\\\"CHIRURGIE PEDIATRIQUE\\\",\\\"جراحة الأطفال\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value79\\\" = Table.ReplaceValue(#\\\"Replaced Value78\\\",\\\"CHIRURGIE CARCINOLOGIQUE\\\",\\\"الجراحة السرطانية\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value80\\\" = Table.ReplaceValue(#\\\"Replaced Value79\\\",\\\"CHIRURGIE NEUROLOGIE\\\",\\\"جراحة الأعصاب\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value81\\\" = Table.ReplaceValue(#\\\"Replaced Value80\\\",\\\"CENTRE الأشعة\\\",\\\"مركز الأشعة\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"}),\\r\\n    #\\\"Replaced Value82\\\" = Table.ReplaceValue(#\\\"Replaced Value81\\\",\\\"NEPHROLOGIE\\\",\\\"أمراض الكلى\\\",Replacer.ReplaceText,{\\\"LibSpec\\\"})\\r\\nin\\r\\n    #\\\"Replaced Value82\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "budget",
+      "lineageTag": "d7a46d47-defe-4ef4-aa18-44838393fd02",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    dbo_budget = Source{[Schema=\"dbo\",Item=\"budget\"]}[Data]",
+        "in",
+        "    dbo_budget"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    dbo_budget = Source{[Schema=\\\"dbo\\\",Item=\\\"budget\\\"]}[Data]\\r\\nin\\r\\n    dbo_budget\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting nombre_de_lit_par_chambre_par_clinique",
+      "lineageTag": "18e8f1a7-a2ea-4497-baae-833f8105d25d",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_nombre_de_lit_par_chambre_par_clinique = Source{[Schema=\"reporting\",Item=\"nombre_de_lit_par_chambre_par_clinique\"]}[Data]",
+        "in",
+        "    reporting_nombre_de_lit_par_chambre_par_clinique"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_nombre_de_lit_par_chambre_par_clinique = Source{[Schema=\\\"reporting\\\",Item=\\\"nombre_de_lit_par_chambre_par_clinique\\\"]}[Data]\\r\\nin\\r\\n    reporting_nombre_de_lit_par_chambre_par_clinique\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting occupation",
+      "lineageTag": "c8b367d6-b126-4e48-99af-4af461bf17f3",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_occupation = Source{[Schema=\"reporting\",Item=\"occupation\"]}[Data],",
+        "    #\"Filtered Rows\" = Table.SelectRows(reporting_occupation, each true)",
+        "in",
+        "    #\"Filtered Rows\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_occupation = Source{[Schema=\\\"reporting\\\",Item=\\\"occupation\\\"]}[Data],\\r\\n    #\\\"Filtered Rows\\\" = Table.SelectRows(reporting_occupation, each true)\\r\\nin\\r\\n    #\\\"Filtered Rows\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting radiology",
+      "lineageTag": "a0e9f846-1322-4921-aac3-f5df7e5299e7",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_radiology = Source{[Schema=\"reporting\",Item=\"v_radiology\"]}[Data],",
+        "    #\"Replaced Value\" = Table.ReplaceValue(reporting_radiology,\"SCANNER\",\"الماسح الضوئي\",Replacer.ReplaceText,{\"famille_examen\"}),",
+        "    #\"Replaced Value1\" = Table.ReplaceValue(#\"Replaced Value\",\"ECHOGRAPHIE\",\"صدى الصوت\",Replacer.ReplaceText,{\"famille_examen\"}),",
+        "    #\"Replaced Value2\" = Table.ReplaceValue(#\"Replaced Value1\",\"RX STANDARDS\",\"معايير RX\",Replacer.ReplaceText,{\"famille_examen\"}),",
+        "    #\"Replaced Value3\" = Table.ReplaceValue(#\"Replaced Value2\",\"معايير RX\",\"RX معايير\",Replacer.ReplaceText,{\"famille_examen\"}),",
+        "    #\"Replaced Value4\" = Table.ReplaceValue(#\"Replaced Value3\",\"IRM\",\"التصوير بالرنين المغناطيسي\",Replacer.ReplaceText,{\"famille_examen\"})",
+        "in",
+        "    #\"Replaced Value4\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_radiology = Source{[Schema=\\\"reporting\\\",Item=\\\"v_radiology\\\"]}[Data],\\r\\n    #\\\"Replaced Value\\\" = Table.ReplaceValue(reporting_radiology,\\\"SCANNER\\\",\\\"الماسح الضوئي\\\",Replacer.ReplaceText,{\\\"famille_examen\\\"}),\\r\\n    #\\\"Replaced Value1\\\" = Table.ReplaceValue(#\\\"Replaced Value\\\",\\\"ECHOGRAPHIE\\\",\\\"صدى الصوت\\\",Replacer.ReplaceText,{\\\"famille_examen\\\"}),\\r\\n    #\\\"Replaced Value2\\\" = Table.ReplaceValue(#\\\"Replaced Value1\\\",\\\"RX STANDARDS\\\",\\\"معايير RX\\\",Replacer.ReplaceText,{\\\"famille_examen\\\"}),\\r\\n    #\\\"Replaced Value3\\\" = Table.ReplaceValue(#\\\"Replaced Value2\\\",\\\"معايير RX\\\",\\\"RX معايير\\\",Replacer.ReplaceText,{\\\"famille_examen\\\"}),\\r\\n    #\\\"Replaced Value4\\\" = Table.ReplaceValue(#\\\"Replaced Value3\\\",\\\"IRM\\\",\\\"التصوير بالرنين المغناطيسي\\\",Replacer.ReplaceText,{\\\"famille_examen\\\"})\\r\\nin\\r\\n    #\\\"Replaced Value4\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting activite_bloc",
+      "lineageTag": "0fa3138b-6250-4a5f-b862-046a021cb2f8",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_activite_bloc = Source{[Schema=\"reporting\",Item=\"activite_bloc\"]}[Data]",
+        "in",
+        "    reporting_activite_bloc"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_activite_bloc = Source{[Schema=\\\"reporting\\\",Item=\\\"activite_bloc\\\"]}[Data]\\r\\nin\\r\\n    reporting_activite_bloc\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting Available_time_bloc",
+      "lineageTag": "18881e74-0946-45e6-8e85-5384ed1dea39",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_Available_time_bloc = Source{[Schema=\"reporting\",Item=\"Available_time_bloc\"]}[Data]",
+        "in",
+        "    reporting_Available_time_bloc"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_Available_time_bloc = Source{[Schema=\\\"reporting\\\",Item=\\\"Available_time_bloc\\\"]}[Data]\\r\\nin\\r\\n    reporting_Available_time_bloc\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting tab_recouvrement",
+      "lineageTag": "f0da959e-b01b-46b2-9906-45b6f49a5a1b",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_v_tab_recouvrement = Source{[Schema=\"reporting\",Item=\"v_tab_recouvrement\"]}[Data],",
+        "    #\"Renamed Columns\" = Table.RenameColumns(reporting_v_tab_recouvrement,{{\"facturation_paiement_delais\", \"DSO /DateFAC\"}})",
+        "in",
+        "    #\"Renamed Columns\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_v_tab_recouvrement = Source{[Schema=\\\"reporting\\\",Item=\\\"v_tab_recouvrement\\\"]}[Data],\\r\\n    #\\\"Renamed Columns\\\" = Table.RenameColumns(reporting_v_tab_recouvrement,{{\\\"facturation_paiement_delais\\\", \\\"DSO /DateFAC\\\"}})\\r\\nin\\r\\n    #\\\"Renamed Columns\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting collection",
+      "lineageTag": "5924df6c-e038-4f14-874a-7225626f2ebe",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_V_collection_evolution = Source{[Schema=\"reporting\",Item=\"V_collection_evolution\"]}[Data]",
+        "in",
+        "    reporting_V_collection_evolution"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_V_collection_evolution = Source{[Schema=\\\"reporting\\\",Item=\\\"V_collection_evolution\\\"]}[Data]\\r\\nin\\r\\n    reporting_V_collection_evolution\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting dossier_instance",
+      "lineageTag": "42bb66c4-1952-4cfe-838f-c0c254625936",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_dossier_instance = Source{[Schema=\"reporting\",Item=\"v_dossier_instance\"]}[Data]",
+        "in",
+        "    reporting_dossier_instance"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_dossier_instance = Source{[Schema=\\\"reporting\\\",Item=\\\"v_dossier_instance\\\"]}[Data]\\r\\nin\\r\\n    reporting_dossier_instance\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting etat_dossier",
+      "lineageTag": "5a086c24-caf6-4163-9af1-ca3344f13eb7",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_vetat_dossier = Source{[Schema=\"reporting\",Item=\"vetat_dossier\"]}[Data]",
+        "in",
+        "    reporting_vetat_dossier"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_vetat_dossier = Source{[Schema=\\\"reporting\\\",Item=\\\"vetat_dossier\\\"]}[Data]\\r\\nin\\r\\n    reporting_vetat_dossier\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting V_hospitalise",
+      "lineageTag": "9658b648-5019-46a1-91da-91e2a0d2fffc",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_V_hospitalise = Source{[Schema=\"reporting\",Item=\"V_hospitalise\"]}[Data],",
+        "    #\"Filtered Rows\" = Table.SelectRows(reporting_V_hospitalise, each ([centre] <> null))",
+        "in",
+        "    #\"Filtered Rows\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_V_hospitalise = Source{[Schema=\\\"reporting\\\",Item=\\\"V_hospitalise\\\"]}[Data],\\r\\n    #\\\"Filtered Rows\\\" = Table.SelectRows(reporting_V_hospitalise, each ([centre] <> null))\\r\\nin\\r\\n    #\\\"Filtered Rows\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting responsable_organisme",
+      "lineageTag": "0a355d83-1d56-464e-9cdb-a1f48ba4fdec",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_responsable_organisme = Source{[Schema=\"reporting\",Item=\"responsable_organisme\"]}[Data]",
+        "in",
+        "    reporting_responsable_organisme"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_responsable_organisme = Source{[Schema=\\\"reporting\\\",Item=\\\"responsable_organisme\\\"]}[Data]\\r\\nin\\r\\n    reporting_responsable_organisme\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "recouv recouvrement",
+      "lineageTag": "c8c46f6b-c44d-4d65-98bc-e245f4afccd6",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    recouv_recouvrement = Source{[Schema=\"recouv\",Item=\"recouvrement\"]}[Data],",
+        "    #\"Added Custom\" = Table.AddColumn(recouv_recouvrement, \"id\", each [NumDoss]&[NumSoc]),",
+        "    #\"Renamed Columns\" = Table.RenameColumns(#\"Added Custom\",{{\"MntPEC\", \"MntCliPEC\"}})",
+        "in",
+        "    #\"Renamed Columns\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    recouv_recouvrement = Source{[Schema=\\\"recouv\\\",Item=\\\"recouvrement\\\"]}[Data],\\r\\n    #\\\"Added Custom\\\" = Table.AddColumn(recouv_recouvrement, \\\"id\\\", each [NumDoss]&[NumSoc]),\\r\\n    #\\\"Renamed Columns\\\" = Table.RenameColumns(#\\\"Added Custom\\\",{{\\\"MntPEC\\\", \\\"MntCliPEC\\\"}})\\r\\nin\\r\\n    #\\\"Renamed Columns\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "recouv details_recouvrement",
+      "lineageTag": "12d29960-5368-4859-bb34-45888cfe0d45",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_detail_recouvrement = Source{[Schema=\"reporting\",Item=\"detail_recouvrement\"]}[Data],",
+        "    #\"Added Custom\" = Table.AddColumn(reporting_detail_recouvrement, \"id_recouv\", each [numdoss]&[numsoc])",
+        "in",
+        "    #\"Added Custom\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_detail_recouvrement = Source{[Schema=\\\"reporting\\\",Item=\\\"detail_recouvrement\\\"]}[Data],\\r\\n    #\\\"Added Custom\\\" = Table.AddColumn(reporting_detail_recouvrement, \\\"id_recouv\\\", each [numdoss]&[numsoc])\\r\\nin\\r\\n    #\\\"Added Custom\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "centre de profit",
+      "lineageTag": "fea83032-a921-4552-b9c5-ca9c13d12eda",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_centre_de_profit = Source{[Schema=\"reporting\",Item=\"centre_de_profit\"]}[Data],",
+        "    #\"Replaced Value\" = Table.ReplaceValue(reporting_centre_de_profit,\"Hospitalisation\",\"الإيواء في المستشفيات\",Replacer.ReplaceText,{\"designation\"}),",
+        "    #\"Replaced Value1\" = Table.ReplaceValue(#\"Replaced Value\",\"Bloc opératoire\",\"غرفة العمليات\",Replacer.ReplaceText,{\"designation\"}),",
+        "    #\"Replaced Value2\" = Table.ReplaceValue(#\"Replaced Value1\",\"Cathétérisme\",\"قسطرة قلبية\",Replacer.ReplaceText,{\"designation\"}),",
+        "    #\"Replaced Value3\" = Table.ReplaceValue(#\"Replaced Value2\",\"Radiologie\",\"الأشعة\",Replacer.ReplaceText,{\"designation\"}),",
+        "    #\"Replaced Value4\" = Table.ReplaceValue(#\"Replaced Value3\",\"Urgence\",\"طوارئ\",Replacer.ReplaceText,{\"designation\"}),",
+        "    #\"Replaced Value5\" = Table.ReplaceValue(#\"Replaced Value4\",\"Exploration cardiaque\",\"أبحاث القلب\",Replacer.ReplaceText,{\"designation\"}),",
+        "    #\"Replaced Value6\" = Table.ReplaceValue(#\"Replaced Value5\",\"Nutrition\",\"تَغذِيَة\",Replacer.ReplaceText,{\"designation\"}),",
+        "    #\"Replaced Value7\" = Table.ReplaceValue(#\"Replaced Value6\",\"Laboratoire\",\"مختبر\",Replacer.ReplaceText,{\"designation\"}),",
+        "    #\"Replaced Value8\" = Table.ReplaceValue(#\"Replaced Value7\",\"Endoscopie\",\"مناظير\",Replacer.ReplaceText,{\"designation\"}),",
+        "    #\"Replaced Value9\" = Table.ReplaceValue(#\"Replaced Value8\",\"Exploration ophtalmo\",\"استكشاف العيون\",Replacer.ReplaceText,{\"designation\"}),",
+        "    #\"Replaced Value10\" = Table.ReplaceValue(#\"Replaced Value9\",\"Neurophysiologie\",\"أعصاب\",Replacer.ReplaceText,{\"designation\"}),",
+        "    #\"Replaced Value11\" = Table.ReplaceValue(#\"Replaced Value10\",\"Urodynamique\",\"الاستكشاف الديناميكي للحوض\",Replacer.ReplaceText,{\"designation\"})",
+        "in",
+        "    #\"Replaced Value11\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_centre_de_profit = Source{[Schema=\\\"reporting\\\",Item=\\\"centre_de_profit\\\"]}[Data],\\r\\n    #\\\"Replaced Value\\\" = Table.ReplaceValue(reporting_centre_de_profit,\\\"Hospitalisation\\\",\\\"الإيواء في المستشفيات\\\",Replacer.ReplaceText,{\\\"designation\\\"}),\\r\\n    #\\\"Replaced Value1\\\" = Table.ReplaceValue(#\\\"Replaced Value\\\",\\\"Bloc opératoire\\\",\\\"غرفة العمليات\\\",Replacer.ReplaceText,{\\\"designation\\\"}),\\r\\n    #\\\"Replaced Value2\\\" = Table.ReplaceValue(#\\\"Replaced Value1\\\",\\\"Cathétérisme\\\",\\\"قسطرة قلبية\\\",Replacer.ReplaceText,{\\\"designation\\\"}),\\r\\n    #\\\"Replaced Value3\\\" = Table.ReplaceValue(#\\\"Replaced Value2\\\",\\\"Radiologie\\\",\\\"الأشعة\\\",Replacer.ReplaceText,{\\\"designation\\\"}),\\r\\n    #\\\"Replaced Value4\\\" = Table.ReplaceValue(#\\\"Replaced Value3\\\",\\\"Urgence\\\",\\\"طوارئ\\\",Replacer.ReplaceText,{\\\"designation\\\"}),\\r\\n    #\\\"Replaced Value5\\\" = Table.ReplaceValue(#\\\"Replaced Value4\\\",\\\"Exploration cardiaque\\\",\\\"أبحاث القلب\\\",Replacer.ReplaceText,{\\\"designation\\\"}),\\r\\n    #\\\"Replaced Value6\\\" = Table.ReplaceValue(#\\\"Replaced Value5\\\",\\\"Nutrition\\\",\\\"تَغذِيَة\\\",Replacer.ReplaceText,{\\\"designation\\\"}),\\r\\n    #\\\"Replaced Value7\\\" = Table.ReplaceValue(#\\\"Replaced Value6\\\",\\\"Laboratoire\\\",\\\"مختبر\\\",Replacer.ReplaceText,{\\\"designation\\\"}),\\r\\n    #\\\"Replaced Value8\\\" = Table.ReplaceValue(#\\\"Replaced Value7\\\",\\\"Endoscopie\\\",\\\"مناظير\\\",Replacer.ReplaceText,{\\\"designation\\\"}),\\r\\n    #\\\"Replaced Value9\\\" = Table.ReplaceValue(#\\\"Replaced Value8\\\",\\\"Exploration ophtalmo\\\",\\\"استكشاف العيون\\\",Replacer.ReplaceText,{\\\"designation\\\"}),\\r\\n    #\\\"Replaced Value10\\\" = Table.ReplaceValue(#\\\"Replaced Value9\\\",\\\"Neurophysiologie\\\",\\\"أعصاب\\\",Replacer.ReplaceText,{\\\"designation\\\"}),\\r\\n    #\\\"Replaced Value11\\\" = Table.ReplaceValue(#\\\"Replaced Value10\\\",\\\"Urodynamique\\\",\\\"الاستكشاف الديناميكي للحوض\\\",Replacer.ReplaceText,{\\\"designation\\\"})\\r\\nin\\r\\n    #\\\"Replaced Value11\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "budget_categorie",
+      "lineageTag": "e4dd27b9-2170-4207-bfa6-3c2b07668be9",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    dbo_budget_categorie = Source{[Schema=\"dbo\",Item=\"budget_categorie\"]}[Data]",
+        "in",
+        "    dbo_budget_categorie"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    dbo_budget_categorie = Source{[Schema=\\\"dbo\\\",Item=\\\"budget_categorie\\\"]}[Data]\\r\\nin\\r\\n    dbo_budget_categorie\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting achat_pharmacie",
+      "lineageTag": "27ac4191-358f-4b47-84b7-1d9459aa39b5",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_achat_pharmacie = Source{[Schema=\"reporting\",Item=\"achat_pharmacie\"]}[Data]",
+        "in",
+        "    reporting_achat_pharmacie"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_achat_pharmacie = Source{[Schema=\\\"reporting\\\",Item=\\\"achat_pharmacie\\\"]}[Data]\\r\\nin\\r\\n    reporting_achat_pharmacie\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting transfert",
+      "lineageTag": "fea80e99-4e2c-4a00-a003-ebfe181b2313",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_transfert = Source{[Schema=\"reporting\",Item=\"transfert\"]}[Data]",
+        "in",
+        "    reporting_transfert"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_transfert = Source{[Schema=\\\"reporting\\\",Item=\\\"transfert\\\"]}[Data]\\r\\nin\\r\\n    reporting_transfert\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting prelevement",
+      "lineageTag": "945eff30-6d91-47cf-9f73-f1c64aeaf2b3",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_prelevement = Source{[Schema=\"reporting\",Item=\"prelevement\"]}[Data]",
+        "in",
+        "    reporting_prelevement"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_prelevement = Source{[Schema=\\\"reporting\\\",Item=\\\"prelevement\\\"]}[Data]\\r\\nin\\r\\n    reporting_prelevement\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting mvtstoPharmacie_vente",
+      "lineageTag": "a1e9feea-18c8-47ca-a822-6bfb9b3a4c44",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_mvtstoPharmacie = Source{[Schema=\"reporting\",Item=\"mvtstoPharmacie\"]}[Data],",
+        "    #\"Renamed Columns\" = Table.RenameColumns(reporting_mvtstoPharmacie,{{\"Expr1\", \"NumDoss\"}}),",
+        "    #\"Replaced Value\" = Table.ReplaceValue(#\"Renamed Columns\",\"PANSEMENTS\",\"ضمادة\",Replacer.ReplaceText,{\"familleArticle\"}),",
+        "    #\"Replaced Value1\" = Table.ReplaceValue(#\"Replaced Value\",\"ELECTRODES UU \",\"الأقطاب الكهربائية\",Replacer.ReplaceText,{\"familleArticle\"}),",
+        "    #\"Replaced Value2\" = Table.ReplaceValue(#\"Replaced Value1\",\"GANT\",\"قفاز\",Replacer.ReplaceText,{\"familleArticle\"}),",
+        "    #\"Replaced Value3\" = Table.ReplaceValue(#\"Replaced Value2\",\"MEDICAMENTS \",\"أدوية\",Replacer.ReplaceText,{\"familleArticle\"}),",
+        "    #\"Replaced Value4\" = Table.ReplaceValue(#\"Replaced Value3\",\"SERINGUES \",\"حقنة\",Replacer.ReplaceText,{\"familleArticle\"}),",
+        "    #\"Replaced Value5\" = Table.ReplaceValue(#\"Replaced Value4\",\"SERUM \",\"مصل الدم\",Replacer.ReplaceText,{\"familleArticle\"}),",
+        "    #\"Replaced Value6\" = Table.ReplaceValue(#\"Replaced Value5\",\"NYLON \",\"نايلون\",Replacer.ReplaceText,{\"familleArticle\"}),",
+        "    #\"Replaced Value7\" = Table.ReplaceValue(#\"Replaced Value6\",\"BAS DE CONTENTION \",\"جوارب الضغط\",Replacer.ReplaceText,{\"familleArticle\"}),",
+        "    #\"Replaced Value8\" = Table.ReplaceValue(#\"Replaced Value7\",\"ACCESSOIRES UU \",\"لوازم\",Replacer.ReplaceText,{\"familleArticle\"}),",
+        "    #\"Replaced Value9\" = Table.ReplaceValue(#\"Replaced Value8\",\"MEDICAMENT\",\"أدوية\",Replacer.ReplaceText,{\"familleArticle\"}),",
+        "    #\"Replaced Value10\" = Table.ReplaceValue(#\"Replaced Value9\",\"MASQUES \",\"أقنعة\",Replacer.ReplaceText,{\"familleArticle\"}),",
+        "    #\"Replaced Value11\" = Table.ReplaceValue(#\"Replaced Value10\",\"CIRCUIT PATIENT \",\"دائرة المريض\",Replacer.ReplaceText,{\"familleArticle\"}),",
+        "    #\"Replaced Value12\" = Table.ReplaceValue(#\"Replaced Value11\",\"BRANULES \",\"XX\",Replacer.ReplaceText,{\"familleArticle\"}),",
+        "    #\"Replaced Value13\" = Table.ReplaceValue(#\"Replaced Value12\",\"CHAMPS UU + TROUSSES \",\"XXX\",Replacer.ReplaceText,{\"familleArticle\"}),",
+        "    #\"Replaced Value14\" = Table.ReplaceValue(#\"Replaced Value13\",\"BANDELETTES \",\"XXXX\",Replacer.ReplaceText,{\"familleArticle\"}),",
+        "    #\"Replaced Value15\" = Table.ReplaceValue(#\"Replaced Value14\",\"AIGUILLE\",\"XXXXX\",Replacer.ReplaceText,{\"familleArticle\"}),",
+        "    #\"Replaced Value16\" = Table.ReplaceValue(#\"Replaced Value15\",\"SONDES UU \",\"XXXXXX\",Replacer.ReplaceText,{\"familleArticle\"})",
+        "in",
+        "    #\"Replaced Value16\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_mvtstoPharmacie = Source{[Schema=\\\"reporting\\\",Item=\\\"mvtstoPharmacie\\\"]}[Data],\\r\\n    #\\\"Renamed Columns\\\" = Table.RenameColumns(reporting_mvtstoPharmacie,{{\\\"Expr1\\\", \\\"NumDoss\\\"}}),\\r\\n    #\\\"Replaced Value\\\" = Table.ReplaceValue(#\\\"Renamed Columns\\\",\\\"PANSEMENTS\\\",\\\"ضمادة\\\",Replacer.ReplaceText,{\\\"familleArticle\\\"}),\\r\\n    #\\\"Replaced Value1\\\" = Table.ReplaceValue(#\\\"Replaced Value\\\",\\\"ELECTRODES UU \\\",\\\"الأقطاب الكهربائية\\\",Replacer.ReplaceText,{\\\"familleArticle\\\"}),\\r\\n    #\\\"Replaced Value2\\\" = Table.ReplaceValue(#\\\"Replaced Value1\\\",\\\"GANT\\\",\\\"قفاز\\\",Replacer.ReplaceText,{\\\"familleArticle\\\"}),\\r\\n    #\\\"Replaced Value3\\\" = Table.ReplaceValue(#\\\"Replaced Value2\\\",\\\"MEDICAMENTS \\\",\\\"أدوية\\\",Replacer.ReplaceText,{\\\"familleArticle\\\"}),\\r\\n    #\\\"Replaced Value4\\\" = Table.ReplaceValue(#\\\"Replaced Value3\\\",\\\"SERINGUES \\\",\\\"حقنة\\\",Replacer.ReplaceText,{\\\"familleArticle\\\"}),\\r\\n    #\\\"Replaced Value5\\\" = Table.ReplaceValue(#\\\"Replaced Value4\\\",\\\"SERUM \\\",\\\"مصل الدم\\\",Replacer.ReplaceText,{\\\"familleArticle\\\"}),\\r\\n    #\\\"Replaced Value6\\\" = Table.ReplaceValue(#\\\"Replaced Value5\\\",\\\"NYLON \\\",\\\"نايلون\\\",Replacer.ReplaceText,{\\\"familleArticle\\\"}),\\r\\n    #\\\"Replaced Value7\\\" = Table.ReplaceValue(#\\\"Replaced Value6\\\",\\\"BAS DE CONTENTION \\\",\\\"جوارب الضغط\\\",Replacer.ReplaceText,{\\\"familleArticle\\\"}),\\r\\n    #\\\"Replaced Value8\\\" = Table.ReplaceValue(#\\\"Replaced Value7\\\",\\\"ACCESSOIRES UU \\\",\\\"لوازم\\\",Replacer.ReplaceText,{\\\"familleArticle\\\"}),\\r\\n    #\\\"Replaced Value9\\\" = Table.ReplaceValue(#\\\"Replaced Value8\\\",\\\"MEDICAMENT\\\",\\\"أدوية\\\",Replacer.ReplaceText,{\\\"familleArticle\\\"}),\\r\\n    #\\\"Replaced Value10\\\" = Table.ReplaceValue(#\\\"Replaced Value9\\\",\\\"MASQUES \\\",\\\"أقنعة\\\",Replacer.ReplaceText,{\\\"familleArticle\\\"}),\\r\\n    #\\\"Replaced Value11\\\" = Table.ReplaceValue(#\\\"Replaced Value10\\\",\\\"CIRCUIT PATIENT \\\",\\\"دائرة المريض\\\",Replacer.ReplaceText,{\\\"familleArticle\\\"}),\\r\\n    #\\\"Replaced Value12\\\" = Table.ReplaceValue(#\\\"Replaced Value11\\\",\\\"BRANULES \\\",\\\"XX\\\",Replacer.ReplaceText,{\\\"familleArticle\\\"}),\\r\\n    #\\\"Replaced Value13\\\" = Table.ReplaceValue(#\\\"Replaced Value12\\\",\\\"CHAMPS UU + TROUSSES \\\",\\\"XXX\\\",Replacer.ReplaceText,{\\\"familleArticle\\\"}),\\r\\n    #\\\"Replaced Value14\\\" = Table.ReplaceValue(#\\\"Replaced Value13\\\",\\\"BANDELETTES \\\",\\\"XXXX\\\",Replacer.ReplaceText,{\\\"familleArticle\\\"}),\\r\\n    #\\\"Replaced Value15\\\" = Table.ReplaceValue(#\\\"Replaced Value14\\\",\\\"AIGUILLE\\\",\\\"XXXXX\\\",Replacer.ReplaceText,{\\\"familleArticle\\\"}),\\r\\n    #\\\"Replaced Value16\\\" = Table.ReplaceValue(#\\\"Replaced Value15\\\",\\\"SONDES UU \\\",\\\"XXXXXX\\\",Replacer.ReplaceText,{\\\"familleArticle\\\"})\\r\\nin\\r\\n    #\\\"Replaced Value16\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Exception",
+      "isHidden": false
+    },
+    {
+      "name": "recouv recouvrement_payant",
+      "lineageTag": "c910abb1-d1a4-4ecc-8fb7-6448295bd239",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_recouvrement_payant = Source{[Schema=\"reporting\",Item=\"recouvrement_payant\"]}[Data]",
+        "in",
+        "    reporting_recouvrement_payant"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_recouvrement_payant = Source{[Schema=\\\"reporting\\\",Item=\\\"recouvrement_payant\\\"]}[Data]\\r\\nin\\r\\n    reporting_recouvrement_payant\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "service",
+      "lineageTag": "94cb14f0-a456-42b5-9186-dbeb0c4373f6",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    dbo_service = Source{[Schema=\"dbo\",Item=\"service\"]}[Data],",
+        "    #\"Replaced Value\" = Table.ReplaceValue(dbo_service,\"ESTHETIQUE\",\"جمالي\",Replacer.ReplaceText,{\"Des_services\"}),",
+        "    #\"Replaced Value1\" = Table.ReplaceValue(#\"Replaced Value\",\"MATERNITE\",\"التوليد\",Replacer.ReplaceText,{\"Des_services\"}),",
+        "    #\"Replaced Value2\" = Table.ReplaceValue(#\"Replaced Value1\",\"USIC\",\"وحدة العناية المركزة لأمراض القلب\",Replacer.ReplaceText,{\"Des_services\"}),",
+        "    #\"Replaced Value3\" = Table.ReplaceValue(#\"Replaced Value2\",\"ETAGE 04\",\"طابق 04 \",Replacer.ReplaceText,{\"Des_services\"}),",
+        "    #\"Replaced Value4\" = Table.ReplaceValue(#\"Replaced Value3\",\"ETAGE 03\",\"طابق 03 \",Replacer.ReplaceText,{\"Des_services\"}),",
+        "    #\"Replaced Value5\" = Table.ReplaceValue(#\"Replaced Value4\",\"ETAGE 02\",\"طابق 02 \",Replacer.ReplaceText,{\"Des_services\"}),",
+        "    #\"Replaced Value6\" = Table.ReplaceValue(#\"Replaced Value5\",\"ETAGE 01\",\"طابق 01\",Replacer.ReplaceText,{\"Des_services\"}),",
+        "    #\"Replaced Value7\" = Table.ReplaceValue(#\"Replaced Value6\",\"URGENCE\",\" طوارئ\",Replacer.ReplaceText,{\"Des_services\"}),",
+        "    #\"Replaced Value8\" = Table.ReplaceValue(#\"Replaced Value7\",\"SALLE DE CATHETERISME\",\"غرفة القسطرة\",Replacer.ReplaceText,{\"Des_services\"}),",
+        "    #\"Replaced Value9\" = Table.ReplaceValue(#\"Replaced Value8\",\"REA POLYVALENTE 6 ETAGE\",\"الطابق 06\",Replacer.ReplaceText,{\"Des_services\"}),",
+        "    #\"Replaced Value10\" = Table.ReplaceValue(#\"Replaced Value9\",\"طابق 01\",\"الطابق 01\",Replacer.ReplaceText,{\"Des_services\"}),",
+        "    #\"Replaced Value11\" = Table.ReplaceValue(#\"Replaced Value10\",\"REA CARDIO 7 ETAGE\",\"الطابق 07\",Replacer.ReplaceText,{\"Des_services\"}),",
+        "    #\"Replaced Value12\" = Table.ReplaceValue(#\"Replaced Value11\",\"RADIOLOGIE\",\"الأشعة\",Replacer.ReplaceText,{\"Des_services\"}),",
+        "    #\"Replaced Value13\" = Table.ReplaceValue(#\"Replaced Value12\",\"ETAGE 05\",\"الطابق 05\",Replacer.ReplaceText,{\"Des_services\"}),",
+        "    #\"Replaced Value14\" = Table.ReplaceValue(#\"Replaced Value13\",\"طابق 02 \",\"الطابق 02\",Replacer.ReplaceText,{\"Des_services\"}),",
+        "    #\"Replaced Value15\" = Table.ReplaceValue(#\"Replaced Value14\",\"طابق 03 \",\"الطابق 03\",Replacer.ReplaceText,{\"Des_services\"}),",
+        "    #\"Replaced Value16\" = Table.ReplaceValue(#\"Replaced Value15\",\"طابق 04 \",\"الطابق 04\",Replacer.ReplaceText,{\"Des_services\"}),",
+        "    #\"Replaced Value17\" = Table.ReplaceValue(#\"Replaced Value16\",\"HOPITAL DE JOUR SOUS SOL\",\"مستشفى\",Replacer.ReplaceText,{\"Des_services\"}),",
+        "    #\"Replaced Value18\" = Table.ReplaceValue(#\"Replaced Value17\",\"URODYNAMIQUE \",\"الاستكشاف الديناميكي للحوض\",Replacer.ReplaceText,{\"Des_services\"}),",
+        "    #\"Replaced Value19\" = Table.ReplaceValue(#\"Replaced Value18\",\"EXPLORATION CARDIAQUE\",\"أبحاث القلب\",Replacer.ReplaceText,{\"Des_services\"}),",
+        "    #\"Replaced Value20\" = Table.ReplaceValue(#\"Replaced Value19\",\"Dentaire\",\"طب الأسنان\",Replacer.ReplaceText,{\"Des_services\"}),",
+        "    #\"Replaced Value21\" = Table.ReplaceValue(#\"Replaced Value20\",\"EXPLORATION OPHTALMO\",\"استكشاف العيون\",Replacer.ReplaceText,{\"Des_services\"}),",
+        "    #\"Replaced Value22\" = Table.ReplaceValue(#\"Replaced Value21\",\"V501\",\"XXXXX\",Replacer.ReplaceText,{\"Des_services\"}),",
+        "    #\"Replaced Value23\" = Table.ReplaceValue(#\"Replaced Value22\",\"NEUROPHYSIOLOGIE\",\"أعصاب\",Replacer.ReplaceText,{\"Des_services\"}),",
+        "    #\"Replaced Value24\" = Table.ReplaceValue(#\"Replaced Value23\",\"CHIRURGIE RE\",\"إعادة جراحة\",Replacer.ReplaceText,{\"Des_services\"})",
+        "in",
+        "    #\"Replaced Value24\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    dbo_service = Source{[Schema=\\\"dbo\\\",Item=\\\"service\\\"]}[Data],\\r\\n    #\\\"Replaced Value\\\" = Table.ReplaceValue(dbo_service,\\\"ESTHETIQUE\\\",\\\"جمالي\\\",Replacer.ReplaceText,{\\\"Des_services\\\"}),\\r\\n    #\\\"Replaced Value1\\\" = Table.ReplaceValue(#\\\"Replaced Value\\\",\\\"MATERNITE\\\",\\\"التوليد\\\",Replacer.ReplaceText,{\\\"Des_services\\\"}),\\r\\n    #\\\"Replaced Value2\\\" = Table.ReplaceValue(#\\\"Replaced Value1\\\",\\\"USIC\\\",\\\"وحدة العناية المركزة لأمراض القلب\\\",Replacer.ReplaceText,{\\\"Des_services\\\"}),\\r\\n    #\\\"Replaced Value3\\\" = Table.ReplaceValue(#\\\"Replaced Value2\\\",\\\"ETAGE 04\\\",\\\"طابق 04 \\\",Replacer.ReplaceText,{\\\"Des_services\\\"}),\\r\\n    #\\\"Replaced Value4\\\" = Table.ReplaceValue(#\\\"Replaced Value3\\\",\\\"ETAGE 03\\\",\\\"طابق 03 \\\",Replacer.ReplaceText,{\\\"Des_services\\\"}),\\r\\n    #\\\"Replaced Value5\\\" = Table.ReplaceValue(#\\\"Replaced Value4\\\",\\\"ETAGE 02\\\",\\\"طابق 02 \\\",Replacer.ReplaceText,{\\\"Des_services\\\"}),\\r\\n    #\\\"Replaced Value6\\\" = Table.ReplaceValue(#\\\"Replaced Value5\\\",\\\"ETAGE 01\\\",\\\"طابق 01\\\",Replacer.ReplaceText,{\\\"Des_services\\\"}),\\r\\n    #\\\"Replaced Value7\\\" = Table.ReplaceValue(#\\\"Replaced Value6\\\",\\\"URGENCE\\\",\\\" طوارئ\\\",Replacer.ReplaceText,{\\\"Des_services\\\"}),\\r\\n    #\\\"Replaced Value8\\\" = Table.ReplaceValue(#\\\"Replaced Value7\\\",\\\"SALLE DE CATHETERISME\\\",\\\"غرفة القسطرة\\\",Replacer.ReplaceText,{\\\"Des_services\\\"}),\\r\\n    #\\\"Replaced Value9\\\" = Table.ReplaceValue(#\\\"Replaced Value8\\\",\\\"REA POLYVALENTE 6 ETAGE\\\",\\\"الطابق 06\\\",Replacer.ReplaceText,{\\\"Des_services\\\"}),\\r\\n    #\\\"Replaced Value10\\\" = Table.ReplaceValue(#\\\"Replaced Value9\\\",\\\"طابق 01\\\",\\\"الطابق 01\\\",Replacer.ReplaceText,{\\\"Des_services\\\"}),\\r\\n    #\\\"Replaced Value11\\\" = Table.ReplaceValue(#\\\"Replaced Value10\\\",\\\"REA CARDIO 7 ETAGE\\\",\\\"الطابق 07\\\",Replacer.ReplaceText,{\\\"Des_services\\\"}),\\r\\n    #\\\"Replaced Value12\\\" = Table.ReplaceValue(#\\\"Replaced Value11\\\",\\\"RADIOLOGIE\\\",\\\"الأشعة\\\",Replacer.ReplaceText,{\\\"Des_services\\\"}),\\r\\n    #\\\"Replaced Value13\\\" = Table.ReplaceValue(#\\\"Replaced Value12\\\",\\\"ETAGE 05\\\",\\\"الطابق 05\\\",Replacer.ReplaceText,{\\\"Des_services\\\"}),\\r\\n    #\\\"Replaced Value14\\\" = Table.ReplaceValue(#\\\"Replaced Value13\\\",\\\"طابق 02 \\\",\\\"الطابق 02\\\",Replacer.ReplaceText,{\\\"Des_services\\\"}),\\r\\n    #\\\"Replaced Value15\\\" = Table.ReplaceValue(#\\\"Replaced Value14\\\",\\\"طابق 03 \\\",\\\"الطابق 03\\\",Replacer.ReplaceText,{\\\"Des_services\\\"}),\\r\\n    #\\\"Replaced Value16\\\" = Table.ReplaceValue(#\\\"Replaced Value15\\\",\\\"طابق 04 \\\",\\\"الطابق 04\\\",Replacer.ReplaceText,{\\\"Des_services\\\"}),\\r\\n    #\\\"Replaced Value17\\\" = Table.ReplaceValue(#\\\"Replaced Value16\\\",\\\"HOPITAL DE JOUR SOUS SOL\\\",\\\"مستشفى\\\",Replacer.ReplaceText,{\\\"Des_services\\\"}),\\r\\n    #\\\"Replaced Value18\\\" = Table.ReplaceValue(#\\\"Replaced Value17\\\",\\\"URODYNAMIQUE \\\",\\\"الاستكشاف الديناميكي للحوض\\\",Replacer.ReplaceText,{\\\"Des_services\\\"}),\\r\\n    #\\\"Replaced Value19\\\" = Table.ReplaceValue(#\\\"Replaced Value18\\\",\\\"EXPLORATION CARDIAQUE\\\",\\\"أبحاث القلب\\\",Replacer.ReplaceText,{\\\"Des_services\\\"}),\\r\\n    #\\\"Replaced Value20\\\" = Table.ReplaceValue(#\\\"Replaced Value19\\\",\\\"Dentaire\\\",\\\"طب الأسنان\\\",Replacer.ReplaceText,{\\\"Des_services\\\"}),\\r\\n    #\\\"Replaced Value21\\\" = Table.ReplaceValue(#\\\"Replaced Value20\\\",\\\"EXPLORATION OPHTALMO\\\",\\\"استكشاف العيون\\\",Replacer.ReplaceText,{\\\"Des_services\\\"}),\\r\\n    #\\\"Replaced Value22\\\" = Table.ReplaceValue(#\\\"Replaced Value21\\\",\\\"V501\\\",\\\"XXXXX\\\",Replacer.ReplaceText,{\\\"Des_services\\\"}),\\r\\n    #\\\"Replaced Value23\\\" = Table.ReplaceValue(#\\\"Replaced Value22\\\",\\\"NEUROPHYSIOLOGIE\\\",\\\"أعصاب\\\",Replacer.ReplaceText,{\\\"Des_services\\\"}),\\r\\n    #\\\"Replaced Value24\\\" = Table.ReplaceValue(#\\\"Replaced Value23\\\",\\\"CHIRURGIE RE\\\",\\\"إعادة جراحة\\\",Replacer.ReplaceText,{\\\"Des_services\\\"})\\r\\nin\\r\\n    #\\\"Replaced Value24\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting Achat_consomme",
+      "lineageTag": "61b7a152-a740-43c6-8a5a-700782cd3220",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_Achat_consomme = Source{[Schema=\"reporting\",Item=\"Achat_consomme\"]}[Data]",
+        "in",
+        "    reporting_Achat_consomme"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_Achat_consomme = Source{[Schema=\\\"reporting\\\",Item=\\\"Achat_consomme\\\"]}[Data]\\r\\nin\\r\\n    reporting_Achat_consomme\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting CTImpayer",
+      "lineageTag": "85dbf63a-9305-4fba-858b-6e98b6d50373",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_CTImpayer = Source{[Schema=\"reporting\",Item=\"CTImpayer\"]}[Data]",
+        "in",
+        "    reporting_CTImpayer"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_CTImpayer = Source{[Schema=\\\"reporting\\\",Item=\\\"CTImpayer\\\"]}[Data]\\r\\nin\\r\\n    reporting_CTImpayer\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "mesure",
+      "lineageTag": "416b1606-59d3-4546-b962-077bcadd97e3",
+      "text": [
+        "let",
+        "    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"i44FAA==\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),",
+        "    #\"Changed Type\" = Table.TransformColumnTypes(Source,{{\"Column1\", type text}}),",
+        "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"Column1\"})",
+        "in",
+        "    #\"Removed Columns\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\\\"i44FAA==\\\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),\\r\\n    #\\\"Changed Type\\\" = Table.TransformColumnTypes(Source,{{\\\"Column1\\\", type text}}),\\r\\n    #\\\"Removed Columns\\\" = Table.RemoveColumns(#\\\"Changed Type\\\",{\\\"Column1\\\"})\\r\\nin\\r\\n    #\\\"Removed Columns\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting fournisseur",
+      "lineageTag": "62afe8f9-558d-452f-925a-52c7a01f3904",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_fournisseur = Source{[Schema=\"reporting\",Item=\"fournisseur\"]}[Data]",
+        "in",
+        "    reporting_fournisseur"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_fournisseur = Source{[Schema=\\\"reporting\\\",Item=\\\"fournisseur\\\"]}[Data]\\r\\nin\\r\\n    reporting_fournisseur\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting tresorerie1",
+      "lineageTag": "6bb0d7d7-98ff-41f2-87d9-6b048e077521",
+      "text": [
+        "let",
+        "    #\"reporting tresorerie1\" = let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_tresorerie1 = Source{[Schema=\"reporting\",Item=\"tresorerie1\"]}[Data]",
+        "in",
+        "    Source,",
+        "    reporting_tresorerie1 = #\"reporting tresorerie1\"{[Schema=\"reporting\",Item=\"tresorerie1\"]}[Data],",
+        "    #\"Changed Type\" = Table.TransformColumnTypes(reporting_tresorerie1,{{\"DatOpe\", type date}})",
+        "in",
+        "    #\"Changed Type\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    #\\\"reporting tresorerie1\\\" = let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_tresorerie1 = Source{[Schema=\\\"reporting\\\",Item=\\\"tresorerie1\\\"]}[Data]\\r\\nin\\r\\n    Source,\\r\\n    reporting_tresorerie1 = #\\\"reporting tresorerie1\\\"{[Schema=\\\"reporting\\\",Item=\\\"tresorerie1\\\"]}[Data],\\r\\n    #\\\"Changed Type\\\" = Table.TransformColumnTypes(reporting_tresorerie1,{{\\\"DatOpe\\\", type date}})\\r\\nin\\r\\n    #\\\"Changed Type\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting Surgery_bloc",
+      "lineageTag": "8bf42cfa-720f-477d-a8ff-c3bb68376c0d",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_Surgery_bloc = Source{[Schema=\"reporting\",Item=\"Surgery_bloc\"]}[Data]",
+        "in",
+        "    reporting_Surgery_bloc"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_Surgery_bloc = Source{[Schema=\\\"reporting\\\",Item=\\\"Surgery_bloc\\\"]}[Data]\\r\\nin\\r\\n    reporting_Surgery_bloc\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "ORDERCENTER",
+      "lineageTag": "419af348-adac-452c-8124-334fbce4d4e7",
+      "text": [
+        "let",
+        "    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"JY7NCsIwEIRfpeTcg/Xfo0JBwaIUPJUelrQ0C2k3JhF8pT5HX8zNepuZbwamadSVgsMIFgNEpEnlqlBt3qiLJZ2RW2YPkdD3DNYCauiQLA2Yoo1Et7pivRWtIZpljrzDMKbKTuJndWa9F33HaIjdQdzLD/2kU/Movvw6S17OZBp8h/D+JHoS+nCGz45pXqz+/amjoMnJn4LPtz8=\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Centre = _t, ordre = _t]),",
+        "    #\"Type modifié\" = Table.TransformColumnTypes(Source,{{\"Centre\", type text}, {\"ordre\", Int64.Type}})",
+        "in",
+        "    #\"Type modifié\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\\\"JY7NCsIwEIRfpeTcg/Xfo0JBwaIUPJUelrQ0C2k3JhF8pT5HX8zNepuZbwamadSVgsMIFgNEpEnlqlBt3qiLJZ2RW2YPkdD3DNYCauiQLA2Yoo1Et7pivRWtIZpljrzDMKbKTuJndWa9F33HaIjdQdzLD/2kU/Movvw6S17OZBp8h/D+JHoS+nCGz45pXqz+/amjoMnJn4LPtz8=\\\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Centre = _t, ordre = _t]),\\r\\n    #\\\"Type modifié\\\" = Table.TransformColumnTypes(Source,{{\\\"Centre\\\", type text}, {\\\"ordre\\\", Int64.Type}})\\r\\nin\\r\\n    #\\\"Type modifié\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "budget_par_medecin_fac",
+      "lineageTag": "a4cccb24-d3db-4c15-8466-556fa9ada226",
+      "text": [
+        "let",
+        "    Source =  Sql.Database(database, datawarehouse),",
+        "    dbo_budget_par_medecin_fac = Source {[Schema=\"dbo\",Item=\"budget_par_medecin_fac\"]}[Data]",
+        "in",
+        "    dbo_budget_par_medecin_fac"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source =  Sql.Database(database, datawarehouse),\\r\\n    dbo_budget_par_medecin_fac = Source {[Schema=\\\"dbo\\\",Item=\\\"budget_par_medecin_fac\\\"]}[Data]\\r\\nin\\r\\n    dbo_budget_par_medecin_fac\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "budget_par_medecin_reali",
+      "lineageTag": "0aafe9d5-9d36-4155-b605-26c46685bed8",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    dbo_budget_par_medecin_reali = Source{[Schema=\"dbo\",Item=\"budget_par_medecin_reali\"]}[Data]",
+        "in",
+        "    dbo_budget_par_medecin_reali"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    dbo_budget_par_medecin_reali = Source{[Schema=\\\"dbo\\\",Item=\\\"budget_par_medecin_reali\\\"]}[Data]\\r\\nin\\r\\n    dbo_budget_par_medecin_reali\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting effectif",
+      "lineageTag": "0c1c2566-79ec-4f4d-b0ff-355db82bb911",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_effectif = Source{[Schema=\"reporting\",Item=\"effectif\"]}[Data]",
+        "in",
+        "    reporting_effectif"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_effectif = Source{[Schema=\\\"reporting\\\",Item=\\\"effectif\\\"]}[Data]\\r\\nin\\r\\n    reporting_effectif\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting heure_supp",
+      "lineageTag": "55116699-a532-4856-a521-142acd7d8796",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_heure_supp = Source{[Schema=\"reporting\",Item=\"heure_supp\"]}[Data]",
+        "in",
+        "    reporting_heure_supp"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_heure_supp = Source{[Schema=\\\"reporting\\\",Item=\\\"heure_supp\\\"]}[Data]\\r\\nin\\r\\n    reporting_heure_supp\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting prime",
+      "lineageTag": "6359f837-c906-4f26-9fe8-3b897a44e839",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_prime = Source{[Schema=\"reporting\",Item=\"prime\"]}[Data]",
+        "in",
+        "    reporting_prime"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_prime = Source{[Schema=\\\"reporting\\\",Item=\\\"prime\\\"]}[Data]\\r\\nin\\r\\n    reporting_prime\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting salaire",
+      "lineageTag": "fe4b3b07-f1f2-4792-b0c1-0ae7c57f417a",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_salaire = Source{[Schema=\"reporting\",Item=\"salaire\"]}[Data]",
+        "in",
+        "    reporting_salaire"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_salaire = Source{[Schema=\\\"reporting\\\",Item=\\\"salaire\\\"]}[Data]\\r\\nin\\r\\n    reporting_salaire\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting masse_salariale_total",
+      "lineageTag": "6a7d65b3-f4d5-4e97-a6a0-8bd0d442aba4",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_masse_salariale_total = Source{[Schema=\"reporting\",Item=\"masse_salariale_total\"]}[Data]",
+        "in",
+        "    reporting_masse_salariale_total"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_masse_salariale_total = Source{[Schema=\\\"reporting\\\",Item=\\\"masse_salariale_total\\\"]}[Data]\\r\\nin\\r\\n    reporting_masse_salariale_total\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting crédit_leasing",
+      "lineageTag": "c6904f24-ea25-499b-8b55-528f44d59613",
+      "text": [
+        "let",
+        "    Source = Sql.Database(\"192.168.20.25\\sql2019\", \"GTresorerie\", [Query=\"select balance.nature,isnull(Balance_as_of_December_31,0)as Balance_as_of_December_31,isnull(Loans_contracted,0) as Loans_contracted,isnull(Loans_Reimbursed,0) as Loans_Reimbursed,#(lf)((isnull(Balance_as_of_December_31,0)+isnull(Loans_contracted,0))- isnull(Loans_Reimbursed,0)) as Balance_YTD  from (#(lf)---credit non regler jusquà aujourd'hui#(lf)select 'Principal'as nature, sum(credit_non_regle) as Balance_as_of_December_31 from (#(lf)select sum(TDetailCrediLeasing.Mont_Princ) as credit_non_regle#(lf) from dbo.CreditLeasing inner join dbo.TDetailCrediLeasing  on TDetailCrediLeasing.Num_Credit = CreditLeasing.NumCredit#(lf)where    CreditLeasing.DatePreEcheance  <DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)and  TDetailCrediLeasing.Regler=0 #(lf)union all#(lf) ---credit regler en 2019#(lf)select sum(TReglementCrediLeasing.PrincReg) as  PrincReg#(lf) from dbo.CreditLeasing inner join dbo.TDetailCrediLeasing  on TDetailCrediLeasing.Num_Credit = CreditLeasing.NumCredit#(lf)inner join dbo.TReglementCrediLeasing on TReglementCrediLeasing.Num_Credit = TDetailCrediLeasing.Num_Credit and #(lf)TReglementCrediLeasing.NumOrd = TDetailCrediLeasing.NumOrd#(lf)where    CreditLeasing.DatePreEcheance  <DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)#(lf) and (TDetailCrediLeasing.Regler<>0 and TReglementCrediLeasing.Dat_Regle>=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0))  #(lf) ) as Principal #(lf) union all#(lf)select 'Intérêt'as nature, sum(interet_credit_non_regle) as Balance_as_of_December_31 from (#(lf)select sum(TDetailCrediLeasing.Mont_Inter) as interet_credit_non_regle#(lf) from dbo.CreditLeasing inner join dbo.TDetailCrediLeasing  on TDetailCrediLeasing.Num_Credit = CreditLeasing.NumCredit#(lf)where    CreditLeasing.DatePreEcheance  <DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)and  TDetailCrediLeasing.Regler=0 #(lf)union all#(lf) ---credit regler en 2019#(lf)select sum(TReglementCrediLeasing.InterRegl) as InterRegl#(lf) from dbo.CreditLeasing inner join dbo.TDetailCrediLeasing  on TDetailCrediLeasing.Num_Credit = CreditLeasing.NumCredit#(lf)inner join dbo.TReglementCrediLeasing on TReglementCrediLeasing.Num_Credit = TDetailCrediLeasing.Num_Credit and #(lf)TReglementCrediLeasing.NumOrd = TDetailCrediLeasing.NumOrd#(lf)where    CreditLeasing.DatePreEcheance  <DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)#(lf) and (TDetailCrediLeasing.Regler<>0 and TReglementCrediLeasing.Dat_Regle>=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0))  #(lf) ) as Interet#(lf) union all#(lf) select 'TVA'as nature, sum(tva) as Balance_as_of_December_31 from (#(lf)select sum(TDetailCrediLeasing.Mont_TVA) as tva#(lf) from dbo.CreditLeasing inner join dbo.TDetailCrediLeasing  on TDetailCrediLeasing.Num_Credit = CreditLeasing.NumCredit#(lf)where    CreditLeasing.DatePreEcheance  <DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)and  TDetailCrediLeasing.Regler=0 #(lf)union all#(lf) ---credit regler en 2019#(lf)select sum(TReglementCrediLeasing.TVARegl) as tva#(lf) from dbo.CreditLeasing inner join dbo.TDetailCrediLeasing  on TDetailCrediLeasing.Num_Credit = CreditLeasing.NumCredit#(lf)inner join dbo.TReglementCrediLeasing on TReglementCrediLeasing.Num_Credit = TDetailCrediLeasing.Num_Credit and #(lf)TReglementCrediLeasing.NumOrd = TDetailCrediLeasing.NumOrd#(lf)where    CreditLeasing.DatePreEcheance  <DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)#(lf) and (TDetailCrediLeasing.Regler<>0 and TReglementCrediLeasing.Dat_Regle>=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0))  #(lf) ) as tva#(lf) ) as balance#(lf)full outer join#(lf)#(lf)------- list des nv credit en 2019  --2er colonne#(lf)#(lf)(#(lf)select 'Principal'as nature, sum(TDetailCrediLeasing.Mont_Princ) as  Loans_contracted #(lf) from dbo.CreditLeasing inner join dbo.TDetailCrediLeasing  on TDetailCrediLeasing.Num_Credit = CreditLeasing.NumCredit#(lf)left outer join dbo.TReglementCrediLeasing on TReglementCrediLeasing.Num_Credit = TDetailCrediLeasing.Num_Credit and #(lf)TReglementCrediLeasing.NumOrd = TDetailCrediLeasing.NumOrd#(lf)where    CreditLeasing.DatePreEcheance  >=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)#(lf)union all#(lf)select 'Intérêt'as nature,sum(case when (TDetailCrediLeasing.Regler=0) then TDetailCrediLeasing.Mont_Inter else TReglementCrediLeasing.InterRegl end) as Loans_contracted#(lf) from dbo.CreditLeasing inner join dbo.TDetailCrediLeasing  on TDetailCrediLeasing.Num_Credit = CreditLeasing.NumCredit#(lf)left outer join dbo.TReglementCrediLeasing on TReglementCrediLeasing.Num_Credit = TDetailCrediLeasing.Num_Credit and #(lf)TReglementCrediLeasing.NumOrd = TDetailCrediLeasing.NumOrd#(lf)where    CreditLeasing.DatePreEcheance  >=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)#(lf)union all#(lf)select 'TVA'as nature,sum(case when (TDetailCrediLeasing.Regler=0) then TDetailCrediLeasing.Mont_TVA else TReglementCrediLeasing.TVARegl end) as Loans_contracted#(lf) from dbo.CreditLeasing inner join dbo.TDetailCrediLeasing  on TDetailCrediLeasing.Num_Credit = CreditLeasing.NumCredit#(lf)left outer join dbo.TReglementCrediLeasing on TReglementCrediLeasing.Num_Credit = TDetailCrediLeasing.Num_Credit and #(lf)TReglementCrediLeasing.NumOrd = TDetailCrediLeasing.NumOrd#(lf)where    CreditLeasing.DatePreEcheance  >=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)#(lf)) as contracted on balance.nature=contracted.nature#(lf)full outer join#(lf)------- list remboursement --3eme colonne#(lf)#(lf)(#(lf)select 'Principal'as nature,sum(TReglementCrediLeasing.PrincReg) as Loans_Reimbursed  #(lf) from dbo.CreditLeasing inner join dbo.TDetailCrediLeasing  on TDetailCrediLeasing.Num_Credit = CreditLeasing.NumCredit#(lf)inner join dbo.TReglementCrediLeasing on TReglementCrediLeasing.Num_Credit = TDetailCrediLeasing.Num_Credit and #(lf)TReglementCrediLeasing.NumOrd = TDetailCrediLeasing.NumOrd#(lf)where   TDetailCrediLeasing.Regler<>0 and TReglementCrediLeasing.Dat_Regle>=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0) and TReglementCrediLeasing.Dat_Regle<=GETDATE()#(lf)union all#(lf)select 'Intérêt'as nature, sum(TReglementCrediLeasing.InterRegl) as Loans_Reimbursed#(lf) from dbo.CreditLeasing inner join dbo.TDetailCrediLeasing  on TDetailCrediLeasing.Num_Credit = CreditLeasing.NumCredit#(lf)inner join dbo.TReglementCrediLeasing on TReglementCrediLeasing.Num_Credit = TDetailCrediLeasing.Num_Credit and #(lf)TReglementCrediLeasing.NumOrd = TDetailCrediLeasing.NumOrd#(lf)where   TDetailCrediLeasing.Regler<>0 and TReglementCrediLeasing.Dat_Regle>=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0) and TReglementCrediLeasing.Dat_Regle<=GETDATE()#(lf)union all#(lf)select 'TVA'as nature, sum(TReglementCrediLeasing.TVARegl) as Loans_Reimbursed#(lf) from dbo.CreditLeasing inner join dbo.TDetailCrediLeasing  on TDetailCrediLeasing.Num_Credit = CreditLeasing.NumCredit#(lf)inner join dbo.TReglementCrediLeasing on TReglementCrediLeasing.Num_Credit = TDetailCrediLeasing.Num_Credit and #(lf)TReglementCrediLeasing.NumOrd = TDetailCrediLeasing.NumOrd#(lf)where   TDetailCrediLeasing.Regler<>0 and TReglementCrediLeasing.Dat_Regle>=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0) and TReglementCrediLeasing.Dat_Regle<=GETDATE()#(lf)) as Reimbursed on balance.nature=Reimbursed.nature\"])",
+        "     ",
+        "in",
+        "    #\"Source\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(\\\"192.168.20.25\\\\sql2019\\\", \\\"GTresorerie\\\", [Query=\\\"select balance.nature,isnull(Balance_as_of_December_31,0)as Balance_as_of_December_31,isnull(Loans_contracted,0) as Loans_contracted,isnull(Loans_Reimbursed,0) as Loans_Reimbursed,#(lf)((isnull(Balance_as_of_December_31,0)+isnull(Loans_contracted,0))- isnull(Loans_Reimbursed,0)) as Balance_YTD  from (#(lf)---credit non regler jusquà aujourd'hui#(lf)select 'Principal'as nature, sum(credit_non_regle) as Balance_as_of_December_31 from (#(lf)select sum(TDetailCrediLeasing.Mont_Princ) as credit_non_regle#(lf) from dbo.CreditLeasing inner join dbo.TDetailCrediLeasing  on TDetailCrediLeasing.Num_Credit = CreditLeasing.NumCredit#(lf)where    CreditLeasing.DatePreEcheance  <DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)and  TDetailCrediLeasing.Regler=0 #(lf)union all#(lf) ---credit regler en 2019#(lf)select sum(TReglementCrediLeasing.PrincReg) as  PrincReg#(lf) from dbo.CreditLeasing inner join dbo.TDetailCrediLeasing  on TDetailCrediLeasing.Num_Credit = CreditLeasing.NumCredit#(lf)inner join dbo.TReglementCrediLeasing on TReglementCrediLeasing.Num_Credit = TDetailCrediLeasing.Num_Credit and #(lf)TReglementCrediLeasing.NumOrd = TDetailCrediLeasing.NumOrd#(lf)where    CreditLeasing.DatePreEcheance  <DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)#(lf) and (TDetailCrediLeasing.Regler<>0 and TReglementCrediLeasing.Dat_Regle>=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0))  #(lf) ) as Principal #(lf) union all#(lf)select 'Intérêt'as nature, sum(interet_credit_non_regle) as Balance_as_of_December_31 from (#(lf)select sum(TDetailCrediLeasing.Mont_Inter) as interet_credit_non_regle#(lf) from dbo.CreditLeasing inner join dbo.TDetailCrediLeasing  on TDetailCrediLeasing.Num_Credit = CreditLeasing.NumCredit#(lf)where    CreditLeasing.DatePreEcheance  <DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)and  TDetailCrediLeasing.Regler=0 #(lf)union all#(lf) ---credit regler en 2019#(lf)select sum(TReglementCrediLeasing.InterRegl) as InterRegl#(lf) from dbo.CreditLeasing inner join dbo.TDetailCrediLeasing  on TDetailCrediLeasing.Num_Credit = CreditLeasing.NumCredit#(lf)inner join dbo.TReglementCrediLeasing on TReglementCrediLeasing.Num_Credit = TDetailCrediLeasing.Num_Credit and #(lf)TReglementCrediLeasing.NumOrd = TDetailCrediLeasing.NumOrd#(lf)where    CreditLeasing.DatePreEcheance  <DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)#(lf) and (TDetailCrediLeasing.Regler<>0 and TReglementCrediLeasing.Dat_Regle>=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0))  #(lf) ) as Interet#(lf) union all#(lf) select 'TVA'as nature, sum(tva) as Balance_as_of_December_31 from (#(lf)select sum(TDetailCrediLeasing.Mont_TVA) as tva#(lf) from dbo.CreditLeasing inner join dbo.TDetailCrediLeasing  on TDetailCrediLeasing.Num_Credit = CreditLeasing.NumCredit#(lf)where    CreditLeasing.DatePreEcheance  <DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)and  TDetailCrediLeasing.Regler=0 #(lf)union all#(lf) ---credit regler en 2019#(lf)select sum(TReglementCrediLeasing.TVARegl) as tva#(lf) from dbo.CreditLeasing inner join dbo.TDetailCrediLeasing  on TDetailCrediLeasing.Num_Credit = CreditLeasing.NumCredit#(lf)inner join dbo.TReglementCrediLeasing on TReglementCrediLeasing.Num_Credit = TDetailCrediLeasing.Num_Credit and #(lf)TReglementCrediLeasing.NumOrd = TDetailCrediLeasing.NumOrd#(lf)where    CreditLeasing.DatePreEcheance  <DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)#(lf) and (TDetailCrediLeasing.Regler<>0 and TReglementCrediLeasing.Dat_Regle>=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0))  #(lf) ) as tva#(lf) ) as balance#(lf)full outer join#(lf)#(lf)------- list des nv credit en 2019  --2er colonne#(lf)#(lf)(#(lf)select 'Principal'as nature, sum(TDetailCrediLeasing.Mont_Princ) as  Loans_contracted #(lf) from dbo.CreditLeasing inner join dbo.TDetailCrediLeasing  on TDetailCrediLeasing.Num_Credit = CreditLeasing.NumCredit#(lf)left outer join dbo.TReglementCrediLeasing on TReglementCrediLeasing.Num_Credit = TDetailCrediLeasing.Num_Credit and #(lf)TReglementCrediLeasing.NumOrd = TDetailCrediLeasing.NumOrd#(lf)where    CreditLeasing.DatePreEcheance  >=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)#(lf)union all#(lf)select 'Intérêt'as nature,sum(case when (TDetailCrediLeasing.Regler=0) then TDetailCrediLeasing.Mont_Inter else TReglementCrediLeasing.InterRegl end) as Loans_contracted#(lf) from dbo.CreditLeasing inner join dbo.TDetailCrediLeasing  on TDetailCrediLeasing.Num_Credit = CreditLeasing.NumCredit#(lf)left outer join dbo.TReglementCrediLeasing on TReglementCrediLeasing.Num_Credit = TDetailCrediLeasing.Num_Credit and #(lf)TReglementCrediLeasing.NumOrd = TDetailCrediLeasing.NumOrd#(lf)where    CreditLeasing.DatePreEcheance  >=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)#(lf)union all#(lf)select 'TVA'as nature,sum(case when (TDetailCrediLeasing.Regler=0) then TDetailCrediLeasing.Mont_TVA else TReglementCrediLeasing.TVARegl end) as Loans_contracted#(lf) from dbo.CreditLeasing inner join dbo.TDetailCrediLeasing  on TDetailCrediLeasing.Num_Credit = CreditLeasing.NumCredit#(lf)left outer join dbo.TReglementCrediLeasing on TReglementCrediLeasing.Num_Credit = TDetailCrediLeasing.Num_Credit and #(lf)TReglementCrediLeasing.NumOrd = TDetailCrediLeasing.NumOrd#(lf)where    CreditLeasing.DatePreEcheance  >=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)#(lf)) as contracted on balance.nature=contracted.nature#(lf)full outer join#(lf)------- list remboursement --3eme colonne#(lf)#(lf)(#(lf)select 'Principal'as nature,sum(TReglementCrediLeasing.PrincReg) as Loans_Reimbursed  #(lf) from dbo.CreditLeasing inner join dbo.TDetailCrediLeasing  on TDetailCrediLeasing.Num_Credit = CreditLeasing.NumCredit#(lf)inner join dbo.TReglementCrediLeasing on TReglementCrediLeasing.Num_Credit = TDetailCrediLeasing.Num_Credit and #(lf)TReglementCrediLeasing.NumOrd = TDetailCrediLeasing.NumOrd#(lf)where   TDetailCrediLeasing.Regler<>0 and TReglementCrediLeasing.Dat_Regle>=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0) and TReglementCrediLeasing.Dat_Regle<=GETDATE()#(lf)union all#(lf)select 'Intérêt'as nature, sum(TReglementCrediLeasing.InterRegl) as Loans_Reimbursed#(lf) from dbo.CreditLeasing inner join dbo.TDetailCrediLeasing  on TDetailCrediLeasing.Num_Credit = CreditLeasing.NumCredit#(lf)inner join dbo.TReglementCrediLeasing on TReglementCrediLeasing.Num_Credit = TDetailCrediLeasing.Num_Credit and #(lf)TReglementCrediLeasing.NumOrd = TDetailCrediLeasing.NumOrd#(lf)where   TDetailCrediLeasing.Regler<>0 and TReglementCrediLeasing.Dat_Regle>=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0) and TReglementCrediLeasing.Dat_Regle<=GETDATE()#(lf)union all#(lf)select 'TVA'as nature, sum(TReglementCrediLeasing.TVARegl) as Loans_Reimbursed#(lf) from dbo.CreditLeasing inner join dbo.TDetailCrediLeasing  on TDetailCrediLeasing.Num_Credit = CreditLeasing.NumCredit#(lf)inner join dbo.TReglementCrediLeasing on TReglementCrediLeasing.Num_Credit = TDetailCrediLeasing.Num_Credit and #(lf)TReglementCrediLeasing.NumOrd = TDetailCrediLeasing.NumOrd#(lf)where   TDetailCrediLeasing.Regler<>0 and TReglementCrediLeasing.Dat_Regle>=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0) and TReglementCrediLeasing.Dat_Regle<=GETDATE()#(lf)) as Reimbursed on balance.nature=Reimbursed.nature\\\"])\\r\\n     \\r\\nin\\r\\n    #\\\"Source\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting crédit_bancaire",
+      "lineageTag": "f1ba0e63-0034-4bc1-8b2b-edb92a09b0b9",
+      "text": [
+        "let",
+        "    Source = Sql.Database(\"192.168.20.25\\sql2019\", \"GTresorerie\", [Query=\"select balance.nature,isnull(Balance_as_of_December_31,0)as Balance_as_of_December_31,isnull(Loans_contracted,0) as Loans_contracted,isnull(Loans_Reimbursed,0) as Loans_Reimbursed,#(lf)((isnull(Balance_as_of_December_31,0)+isnull(Loans_contracted,0))- isnull(Loans_Reimbursed,0)) as Balance_YTD  from (#(lf)---credit non regler jusquà aujourd'hui#(lf)select 'Principal'as nature, sum(credit_non_regle) as Balance_as_of_December_31 from (#(lf)select sum(TDetailCrediBanc.Mont_Brut) as credit_non_regle#(lf) from dbo.TCreditBancaire inner join dbo.TDetailCrediBanc  on TDetailCrediBanc.Num_Credit = TCreditBancaire.Num_Credit#(lf)where    TCreditBancaire.Dat_Ope  <DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)and  TDetailCrediBanc.Regler=0 #(lf)union all#(lf) ---credit regler en 2019#(lf)select sum(TReglementCrediBanc.PrincReg) as  PrincReg#(lf) from dbo.TCreditBancaire inner join dbo.TDetailCrediBanc  on TDetailCrediBanc.Num_Credit = TCreditBancaire.Num_Credit#(lf)inner join dbo.TReglementCrediBanc on TReglementCrediBanc.Num_Credit = TDetailCrediBanc.Num_Credit and #(lf)TReglementCrediBanc.NumOrd = TDetailCrediBanc.NumOrd#(lf)where    TCreditBancaire.Dat_Ope  <DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)#(lf) and (TDetailCrediBanc.Regler<>0 and TReglementCrediBanc.Dat_Regle>=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0))  #(lf) ) as Principal #(lf) union all#(lf)select 'Intérêt'as nature, sum(interet_credit_non_regle) as Balance_as_of_December_31 from (#(lf)select sum(TDetailCrediBanc.Mont_Inter) as interet_credit_non_regle#(lf) from dbo.TCreditBancaire inner join dbo.TDetailCrediBanc  on TDetailCrediBanc.Num_Credit = TCreditBancaire.Num_Credit#(lf)where    TCreditBancaire.Dat_Ope  <DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)and  TDetailCrediBanc.Regler=0 #(lf)union all#(lf) ---credit regler en 2019#(lf)select  sum(TReglementCrediBanc.InterRegl) as InterRegl#(lf) from dbo.TCreditBancaire inner join dbo.TDetailCrediBanc  on TDetailCrediBanc.Num_Credit = TCreditBancaire.Num_Credit#(lf)inner join dbo.TReglementCrediBanc on TReglementCrediBanc.Num_Credit = TDetailCrediBanc.Num_Credit and #(lf)TReglementCrediBanc.NumOrd = TDetailCrediBanc.NumOrd#(lf)where    TCreditBancaire.Dat_Ope  <DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)#(lf) and (TDetailCrediBanc.Regler<>0 and TReglementCrediBanc.Dat_Regle>=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0))  #(lf) ) as Interet) as balance#(lf)full outer join#(lf)#(lf)------- list des nv credit en 2019  --2er colonne#(lf)#(lf)(#(lf)select 'Principal'as nature, sum(TDetailCrediBanc.Mont_Brut) as  Loans_contracted #(lf) from dbo.TCreditBancaire inner join dbo.TDetailCrediBanc  on TDetailCrediBanc.Num_Credit = TCreditBancaire.Num_Credit#(lf)left outer join dbo.TReglementCrediBanc on TReglementCrediBanc.Num_Credit = TDetailCrediBanc.Num_Credit and #(lf)TReglementCrediBanc.NumOrd = TDetailCrediBanc.NumOrd#(lf)where    TCreditBancaire.Dat_Ope  >=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)#(lf)union all#(lf)select 'Intérêt'as nature,sum(case when (TDetailCrediBanc.Regler=0) then TDetailCrediBanc.Mont_Inter else TReglementCrediBanc.InterRegl end) as Loans_contracted#(lf) from dbo.TCreditBancaire inner join dbo.TDetailCrediBanc  on TDetailCrediBanc.Num_Credit = TCreditBancaire.Num_Credit#(lf)left outer join dbo.TReglementCrediBanc on TReglementCrediBanc.Num_Credit = TDetailCrediBanc.Num_Credit and #(lf)TReglementCrediBanc.NumOrd = TDetailCrediBanc.NumOrd#(lf)where    TCreditBancaire.Dat_Ope  >=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)#(lf)) as contracted on balance.nature=contracted.nature#(lf)full outer join#(lf)------- list remboursement --3eme colonne#(lf)#(lf)(#(lf)select 'Principal'as nature,sum(TReglementCrediBanc.PrincReg) as Loans_Reimbursed  #(lf) from dbo.TCreditBancaire inner join dbo.TDetailCrediBanc  on TDetailCrediBanc.Num_Credit = TCreditBancaire.Num_Credit#(lf)inner join dbo.TReglementCrediBanc on TReglementCrediBanc.Num_Credit = TDetailCrediBanc.Num_Credit and #(lf)TReglementCrediBanc.NumOrd = TDetailCrediBanc.NumOrd#(lf)where   TDetailCrediBanc.Regler<>0 and TReglementCrediBanc.Dat_Regle>=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0) and TReglementCrediBanc.Dat_Regle<=GETDATE()#(lf)union all#(lf)select 'Intérêt'as nature, sum(TReglementCrediBanc.InterRegl) as Loans_Reimbursed#(lf) from dbo.TCreditBancaire inner join dbo.TDetailCrediBanc  on TDetailCrediBanc.Num_Credit = TCreditBancaire.Num_Credit#(lf)inner join dbo.TReglementCrediBanc on TReglementCrediBanc.Num_Credit = TDetailCrediBanc.Num_Credit and #(lf)TReglementCrediBanc.NumOrd = TDetailCrediBanc.NumOrd#(lf)where   TDetailCrediBanc.Regler<>0 and TReglementCrediBanc.Dat_Regle>=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0) and TReglementCrediBanc.Dat_Regle<=GETDATE()#(lf)) as Reimbursed on balance.nature=Reimbursed.nature\"])",
+        "     ",
+        "in",
+        "    #\"Source\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(\\\"192.168.20.25\\\\sql2019\\\", \\\"GTresorerie\\\", [Query=\\\"select balance.nature,isnull(Balance_as_of_December_31,0)as Balance_as_of_December_31,isnull(Loans_contracted,0) as Loans_contracted,isnull(Loans_Reimbursed,0) as Loans_Reimbursed,#(lf)((isnull(Balance_as_of_December_31,0)+isnull(Loans_contracted,0))- isnull(Loans_Reimbursed,0)) as Balance_YTD  from (#(lf)---credit non regler jusquà aujourd'hui#(lf)select 'Principal'as nature, sum(credit_non_regle) as Balance_as_of_December_31 from (#(lf)select sum(TDetailCrediBanc.Mont_Brut) as credit_non_regle#(lf) from dbo.TCreditBancaire inner join dbo.TDetailCrediBanc  on TDetailCrediBanc.Num_Credit = TCreditBancaire.Num_Credit#(lf)where    TCreditBancaire.Dat_Ope  <DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)and  TDetailCrediBanc.Regler=0 #(lf)union all#(lf) ---credit regler en 2019#(lf)select sum(TReglementCrediBanc.PrincReg) as  PrincReg#(lf) from dbo.TCreditBancaire inner join dbo.TDetailCrediBanc  on TDetailCrediBanc.Num_Credit = TCreditBancaire.Num_Credit#(lf)inner join dbo.TReglementCrediBanc on TReglementCrediBanc.Num_Credit = TDetailCrediBanc.Num_Credit and #(lf)TReglementCrediBanc.NumOrd = TDetailCrediBanc.NumOrd#(lf)where    TCreditBancaire.Dat_Ope  <DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)#(lf) and (TDetailCrediBanc.Regler<>0 and TReglementCrediBanc.Dat_Regle>=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0))  #(lf) ) as Principal #(lf) union all#(lf)select 'Intérêt'as nature, sum(interet_credit_non_regle) as Balance_as_of_December_31 from (#(lf)select sum(TDetailCrediBanc.Mont_Inter) as interet_credit_non_regle#(lf) from dbo.TCreditBancaire inner join dbo.TDetailCrediBanc  on TDetailCrediBanc.Num_Credit = TCreditBancaire.Num_Credit#(lf)where    TCreditBancaire.Dat_Ope  <DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)and  TDetailCrediBanc.Regler=0 #(lf)union all#(lf) ---credit regler en 2019#(lf)select  sum(TReglementCrediBanc.InterRegl) as InterRegl#(lf) from dbo.TCreditBancaire inner join dbo.TDetailCrediBanc  on TDetailCrediBanc.Num_Credit = TCreditBancaire.Num_Credit#(lf)inner join dbo.TReglementCrediBanc on TReglementCrediBanc.Num_Credit = TDetailCrediBanc.Num_Credit and #(lf)TReglementCrediBanc.NumOrd = TDetailCrediBanc.NumOrd#(lf)where    TCreditBancaire.Dat_Ope  <DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)#(lf) and (TDetailCrediBanc.Regler<>0 and TReglementCrediBanc.Dat_Regle>=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0))  #(lf) ) as Interet) as balance#(lf)full outer join#(lf)#(lf)------- list des nv credit en 2019  --2er colonne#(lf)#(lf)(#(lf)select 'Principal'as nature, sum(TDetailCrediBanc.Mont_Brut) as  Loans_contracted #(lf) from dbo.TCreditBancaire inner join dbo.TDetailCrediBanc  on TDetailCrediBanc.Num_Credit = TCreditBancaire.Num_Credit#(lf)left outer join dbo.TReglementCrediBanc on TReglementCrediBanc.Num_Credit = TDetailCrediBanc.Num_Credit and #(lf)TReglementCrediBanc.NumOrd = TDetailCrediBanc.NumOrd#(lf)where    TCreditBancaire.Dat_Ope  >=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)#(lf)union all#(lf)select 'Intérêt'as nature,sum(case when (TDetailCrediBanc.Regler=0) then TDetailCrediBanc.Mont_Inter else TReglementCrediBanc.InterRegl end) as Loans_contracted#(lf) from dbo.TCreditBancaire inner join dbo.TDetailCrediBanc  on TDetailCrediBanc.Num_Credit = TCreditBancaire.Num_Credit#(lf)left outer join dbo.TReglementCrediBanc on TReglementCrediBanc.Num_Credit = TDetailCrediBanc.Num_Credit and #(lf)TReglementCrediBanc.NumOrd = TDetailCrediBanc.NumOrd#(lf)where    TCreditBancaire.Dat_Ope  >=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0)#(lf)) as contracted on balance.nature=contracted.nature#(lf)full outer join#(lf)------- list remboursement --3eme colonne#(lf)#(lf)(#(lf)select 'Principal'as nature,sum(TReglementCrediBanc.PrincReg) as Loans_Reimbursed  #(lf) from dbo.TCreditBancaire inner join dbo.TDetailCrediBanc  on TDetailCrediBanc.Num_Credit = TCreditBancaire.Num_Credit#(lf)inner join dbo.TReglementCrediBanc on TReglementCrediBanc.Num_Credit = TDetailCrediBanc.Num_Credit and #(lf)TReglementCrediBanc.NumOrd = TDetailCrediBanc.NumOrd#(lf)where   TDetailCrediBanc.Regler<>0 and TReglementCrediBanc.Dat_Regle>=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0) and TReglementCrediBanc.Dat_Regle<=GETDATE()#(lf)union all#(lf)select 'Intérêt'as nature, sum(TReglementCrediBanc.InterRegl) as Loans_Reimbursed#(lf) from dbo.TCreditBancaire inner join dbo.TDetailCrediBanc  on TDetailCrediBanc.Num_Credit = TCreditBancaire.Num_Credit#(lf)inner join dbo.TReglementCrediBanc on TReglementCrediBanc.Num_Credit = TDetailCrediBanc.Num_Credit and #(lf)TReglementCrediBanc.NumOrd = TDetailCrediBanc.NumOrd#(lf)where   TDetailCrediBanc.Regler<>0 and TReglementCrediBanc.Dat_Regle>=DATEADD(YEAR, DATEDIFF(YEAR, 0, getdate()), 0) and TReglementCrediBanc.Dat_Regle<=GETDATE()#(lf)) as Reimbursed on balance.nature=Reimbursed.nature\\\"])\\r\\n     \\r\\nin\\r\\n    #\\\"Source\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting Ajust_maj_rem",
+      "lineageTag": "2ea351d0-6fef-43fd-9a42-16ad143477c1",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_Ajust_maj_rem = Source{[Schema=\"reporting\",Item=\"Ajust_maj_rem\"]}[Data],",
+        "    #\"Replaced Value\" = Table.ReplaceValue(reporting_Ajust_maj_rem,\"Ajustements\",\"تعديل\",Replacer.ReplaceText,{\"description\"}),",
+        "    #\"Replaced Value1\" = Table.ReplaceValue(#\"Replaced Value\",\"CA sans remise\",\"الايراد بدون خصم\",Replacer.ReplaceText,{\"description\"}),",
+        "    #\"Replaced Value2\" = Table.ReplaceValue(#\"Replaced Value1\",\"Majoration conventions\",\"زيادة الاتفاق\",Replacer.ReplaceText,{\"description\"}),",
+        "    #\"Replaced Value3\" = Table.ReplaceValue(#\"Replaced Value2\",\"Réduction conventions\",\"اتفاقيات الخصم\",Replacer.ReplaceText,{\"description\"}),",
+        "    #\"Replaced Value4\" = Table.ReplaceValue(#\"Replaced Value3\",\"Remise payants\",\"خصم مدفوع\",Replacer.ReplaceText,{\"description\"})",
+        "in",
+        "    #\"Replaced Value4\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_Ajust_maj_rem = Source{[Schema=\\\"reporting\\\",Item=\\\"Ajust_maj_rem\\\"]}[Data],\\r\\n    #\\\"Replaced Value\\\" = Table.ReplaceValue(reporting_Ajust_maj_rem,\\\"Ajustements\\\",\\\"تعديل\\\",Replacer.ReplaceText,{\\\"description\\\"}),\\r\\n    #\\\"Replaced Value1\\\" = Table.ReplaceValue(#\\\"Replaced Value\\\",\\\"CA sans remise\\\",\\\"الايراد بدون خصم\\\",Replacer.ReplaceText,{\\\"description\\\"}),\\r\\n    #\\\"Replaced Value2\\\" = Table.ReplaceValue(#\\\"Replaced Value1\\\",\\\"Majoration conventions\\\",\\\"زيادة الاتفاق\\\",Replacer.ReplaceText,{\\\"description\\\"}),\\r\\n    #\\\"Replaced Value3\\\" = Table.ReplaceValue(#\\\"Replaced Value2\\\",\\\"Réduction conventions\\\",\\\"اتفاقيات الخصم\\\",Replacer.ReplaceText,{\\\"description\\\"}),\\r\\n    #\\\"Replaced Value4\\\" = Table.ReplaceValue(#\\\"Replaced Value3\\\",\\\"Remise payants\\\",\\\"خصم مدفوع\\\",Replacer.ReplaceText,{\\\"description\\\"})\\r\\nin\\r\\n    #\\\"Replaced Value4\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting Ajustement",
+      "lineageTag": "31ecc204-2b3b-4c67-8011-5d8273ba1f3a",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_Ajustement = Source{[Schema=\"reporting\",Item=\"Ajustement\"]}[Data]",
+        "in",
+        "    reporting_Ajustement"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_Ajustement = Source{[Schema=\\\"reporting\\\",Item=\\\"Ajustement\\\"]}[Data]\\r\\nin\\r\\n    reporting_Ajustement\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting remise_Ajustement",
+      "lineageTag": "3949f65d-ba56-4f33-9776-6be40abfde4c",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_remise_Ajustement = Source{[Schema=\"reporting\",Item=\"remise_Ajustement\"]}[Data]",
+        "in",
+        "    reporting_remise_Ajustement"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_remise_Ajustement = Source{[Schema=\\\"reporting\\\",Item=\\\"remise_Ajustement\\\"]}[Data]\\r\\nin\\r\\n    reporting_remise_Ajustement\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting detail_recouvrement avance",
+      "lineageTag": "1e85cd1b-1ee4-48e9-a99d-b59487b3d206",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_detail_recouvrement = Source{[Schema=\"reporting\",Item=\"detail_recouvrement\"]}[Data],",
+        "    #\"Personnalisée ajoutée\" = Table.AddColumn(reporting_detail_recouvrement, \"id_recouv\", each [numdoss]&[numsoc]),",
+        "    #\"Lignes filtrées\" = Table.SelectRows(#\"Personnalisée ajoutée\", each [numfac] = \"avance\")",
+        "in",
+        "    #\"Lignes filtrées\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_detail_recouvrement = Source{[Schema=\\\"reporting\\\",Item=\\\"detail_recouvrement\\\"]}[Data],\\r\\n    #\\\"Personnalisée ajoutée\\\" = Table.AddColumn(reporting_detail_recouvrement, \\\"id_recouv\\\", each [numdoss]&[numsoc]),\\r\\n    #\\\"Lignes filtrées\\\" = Table.SelectRows(#\\\"Personnalisée ajoutée\\\", each [numfac] = \\\"avance\\\")\\r\\nin\\r\\n    #\\\"Lignes filtrées\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "database",
+      "lineageTag": "067d5855-0a12-4c29-bd19-74c80b82d8b3",
+      "queryGroupId": "d6852887-bd4a-4cd2-a6a1-6b6de09d498f",
+      "text": [
+        "\"SRV-PBI\\SQL2019\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]"
+      ],
+      "loadAsTableDisabled": true,
+      "resultType": "Exception",
+      "isHidden": false
+    },
+    {
+      "name": "datawarehouse",
+      "lineageTag": "d72b605d-289c-4490-8674-bef10233df1b",
+      "queryGroupId": "d6852887-bd4a-4cd2-a6a1-6b6de09d498f",
+      "text": [
+        "\"Datawarehouse_Pasteur\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]"
+      ],
+      "loadAsTableDisabled": true,
+      "resultType": "Exception",
+      "isHidden": false
+    },
+    {
+      "name": "reporting admission",
+      "lineageTag": "dd757d0a-f8e6-4476-99a4-eebefa34c992",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    reporting_admission = Source{[Schema=\"reporting\",Item=\"admission\"]}[Data],",
+        "    #\"Changed Type\" = Table.TransformColumnTypes(reporting_admission,{{\"DatArr\", type date}})",
+        "in",
+        "    #\"Changed Type\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    reporting_admission = Source{[Schema=\\\"reporting\\\",Item=\\\"admission\\\"]}[Data],\\r\\n    #\\\"Changed Type\\\" = Table.TransformColumnTypes(reporting_admission,{{\\\"DatArr\\\", type date}})\\r\\nin\\r\\n    #\\\"Changed Type\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting MvtstoBlocPH",
+      "lineageTag": "fa9f9572-1212-4f20-bcc9-9fb03ed3bb4b",
+      "text": [
+        "let",
+        "    Source = Sql.Database(\"SRV-PBI\\SQL2019\", \"Datawarehouse_Pasteur\"),",
+        "    reporting_MvtstoBlocPH = Source{[Schema=\"reporting\",Item=\"MvtstoBlocPH\"]}[Data]",
+        "in",
+        "    reporting_MvtstoBlocPH"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(\\\"SRV-PBI\\\\SQL2019\\\", \\\"Datawarehouse_Pasteur\\\"),\\r\\n    reporting_MvtstoBlocPH = Source{[Schema=\\\"reporting\\\",Item=\\\"MvtstoBlocPH\\\"]}[Data]\\r\\nin\\r\\n    reporting_MvtstoBlocPH\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Exception",
+      "isHidden": false
+    },
+    {
+      "name": "reporting mvtstoPharmacie_vente_SB",
+      "lineageTag": "403bf083-1beb-4caf-87d6-4993b92127f8",
+      "text": [
+        "let",
+        "    Source = #\"reporting mvtstoPharmacie_vente\",",
+        "    #\"Lignes filtrées\" = Table.SelectRows(Source, each ([typPh] = \"PSB\"))",
+        "in",
+        "    #\"Lignes filtrées\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = #\\\"reporting mvtstoPharmacie_vente\\\",\\r\\n    #\\\"Lignes filtrées\\\" = Table.SelectRows(Source, each ([typPh] = \\\"PSB\\\"))\\r\\nin\\r\\n    #\\\"Lignes filtrées\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting interv",
+      "lineageTag": "f357b181-77fd-4fc6-acea-6f5a8e364e55",
+      "text": [
+        "let",
+        "    Source = Sql.Database(\"SRV-PBI\\SQL2019\", \"Datawarehouse_Pasteur\"),",
+        "    reporting_interv = Source{[Schema=\"reporting\",Item=\"interv\"]}[Data]",
+        "in",
+        "    reporting_interv"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(\\\"SRV-PBI\\\\SQL2019\\\", \\\"Datawarehouse_Pasteur\\\"),\\r\\n    reporting_interv = Source{[Schema=\\\"reporting\\\",Item=\\\"interv\\\"]}[Data]\\r\\nin\\r\\n    reporting_interv\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting pharmacie_externe",
+      "lineageTag": "23f3ca95-64d2-4904-8f4b-0f80866375d3",
+      "text": [
+        "let",
+        "    Source = Sql.Database(\"SRV-PBI\\SQL2019\", \"Datawarehouse_Pasteur\"),",
+        "    reporting_pharmacie_externe = Source{[Schema=\"reporting\",Item=\"pharmacie_externe\"]}[Data]",
+        "in",
+        "    reporting_pharmacie_externe"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(\\\"SRV-PBI\\\\SQL2019\\\", \\\"Datawarehouse_Pasteur\\\"),\\r\\n    reporting_pharmacie_externe = Source{[Schema=\\\"reporting\\\",Item=\\\"pharmacie_externe\\\"]}[Data]\\r\\nin\\r\\n    reporting_pharmacie_externe\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Exception",
+      "isHidden": false
+    },
+    {
+      "name": "reporting pharmacie_externe_EB",
+      "lineageTag": "4837be1d-a1ce-4cf8-9ec6-268a3ef45f76",
+      "text": [
+        "let",
+        "    Source = Sql.Database(\"SRV-PBI\\SQL2019\", \"Datawarehouse_Pasteur\"),",
+        "    reporting_pharmacie_externe = Source{[Schema=\"reporting\",Item=\"pharmacie_externe\"]}[Data]",
+        "in",
+        "    reporting_pharmacie_externe"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(\\\"SRV-PBI\\\\SQL2019\\\", \\\"Datawarehouse_Pasteur\\\"),\\r\\n    reporting_pharmacie_externe = Source{[Schema=\\\"reporting\\\",Item=\\\"pharmacie_externe\\\"]}[Data]\\r\\nin\\r\\n    reporting_pharmacie_externe\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting clfactureBlocPH",
+      "lineageTag": "ffa4917f-b547-4e5d-83c6-c27e664488a5",
+      "text": [
+        "let",
+        "    Source = Sql.Database(\"SRV-PBI\\SQL2019\", \"Datawarehouse_Pasteur\"),",
+        "    reporting_clfactureBlocPH = Source{[Schema=\"reporting\",Item=\"clfactureBlocPH\"]}[Data]",
+        "in",
+        "    reporting_clfactureBlocPH"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(\\\"SRV-PBI\\\\SQL2019\\\", \\\"Datawarehouse_Pasteur\\\"),\\r\\n    reporting_clfactureBlocPH = Source{[Schema=\\\"reporting\\\",Item=\\\"clfactureBlocPH\\\"]}[Data]\\r\\nin\\r\\n    reporting_clfactureBlocPH\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Exception",
+      "isHidden": false
+    },
+    {
+      "name": "reporting pharmacie_service",
+      "lineageTag": "01f273e1-3ae7-463d-9eac-4c2b37507788",
+      "text": [
+        "let",
+        "    Source = Sql.Database(\"SRV-PBI\\SQL2019\", \"Datawarehouse_Pasteur\"),",
+        "    reporting_pharmacie_service = Source{[Schema=\"reporting\",Item=\"pharmacie_service\"]}[Data]",
+        "in",
+        "    reporting_pharmacie_service"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(\\\"SRV-PBI\\\\SQL2019\\\", \\\"Datawarehouse_Pasteur\\\"),\\r\\n    reporting_pharmacie_service = Source{[Schema=\\\"reporting\\\",Item=\\\"pharmacie_service\\\"]}[Data]\\r\\nin\\r\\n    reporting_pharmacie_service\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Exception",
+      "isHidden": false
+    },
+    {
+      "name": "Medecin_PhBloc",
+      "lineageTag": "31ccc702-86fd-4e8b-9ee5-8640f0b35004",
+      "text": [
+        "let",
+        "    Source = Sql.Database(\"SRV-PBI\\SQL2019\", \"Datawarehouse_Pasteur\"),",
+        "    dbo_Medecin = Source{[Schema=\"dbo\",Item=\"Medecin\"]}[Data]",
+        "in",
+        "    dbo_Medecin"
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(\\\"SRV-PBI\\\\SQL2019\\\", \\\"Datawarehouse_Pasteur\\\"),\\r\\n    dbo_Medecin = Source{[Schema=\\\"dbo\\\",Item=\\\"Medecin\\\"]}[Data]\\r\\nin\\r\\n    dbo_Medecin\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Exception",
+      "isHidden": false
+    },
+    {
+      "name": "recouv recouvrement (2)",
+      "lineageTag": "2ec56840-d436-4cb1-845f-add68059fea3",
+      "text": [
+        "let",
+        "    Source = Sql.Database(database, datawarehouse),",
+        "    recouv_recouvrement = Source{[Schema=\"recouv\",Item=\"recouvrement\"]}[Data],",
+        "    #\"Added Custom\" = Table.AddColumn(recouv_recouvrement, \"id\", each [NumDoss]&[NumSoc]),",
+        "    #\"Renamed Columns\" = Table.RenameColumns(#\"Added Custom\",{{\"MntPEC\", \"MntCliPEC\"}})",
+        "in",
+        "    #\"Renamed Columns\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(database, datawarehouse),\\r\\n    recouv_recouvrement = Source{[Schema=\\\"recouv\\\",Item=\\\"recouvrement\\\"]}[Data],\\r\\n    #\\\"Added Custom\\\" = Table.AddColumn(recouv_recouvrement, \\\"id\\\", each [NumDoss]&[NumSoc]),\\r\\n    #\\\"Renamed Columns\\\" = Table.RenameColumns(#\\\"Added Custom\\\",{{\\\"MntPEC\\\", \\\"MntCliPEC\\\"}})\\r\\nin\\r\\n    #\\\"Renamed Columns\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "MoisArabe",
+      "lineageTag": "f88a32dc-a795-46f3-bf5d-c32b1c69d76b",
+      "text": [
+        "let",
+        "    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"Tc7BDYMwDAXQXXzmUEop7SwRw6AWFGUNDlCEVEVZ5nsbbCeoPfrp++s7RzVVhB0LTzxwoL5ydBXSgwfEQo3SiAURyeCmb3NO8NuoLZnycrdi9lpt0BXQBw74GD5yj8dm51PPhBWbNK2IhvUlh16i/qe6XFZ7mfqX1fH4Sn86tT8A\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Mois = _t, Mois_Arabe = _t]),",
+        "    #\"Changed Type\" = Table.TransformColumnTypes(Source,{{\"Mois\", Int64.Type}, {\"Mois_Arabe\", type text}})",
+        "in",
+        "    #\"Changed Type\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\\\"Tc7BDYMwDAXQXXzmUEop7SwRw6AWFGUNDlCEVEVZ5nsbbCeoPfrp++s7RzVVhB0LTzxwoL5ydBXSgwfEQo3SiAURyeCmb3NO8NuoLZnycrdi9lpt0BXQBw74GD5yj8dm51PPhBWbNK2IhvUlh16i/qe6XFZ7mfqX1fH4Sn86tT8A\\\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Mois = _t, Mois_Arabe = _t]),\\r\\n    #\\\"Changed Type\\\" = Table.TransformColumnTypes(Source,{{\\\"Mois\\\", Int64.Type}, {\\\"Mois_Arabe\\\", type text}})\\r\\nin\\r\\n    #\\\"Changed Type\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "reporting charge_service",
+      "lineageTag": "0a200178-76cb-4372-8933-c69761f1f42e",
+      "text": [
+        "let",
+        "    Source = Sql.Database(\"192.168.20.34\\SQL2019\", \"Datawarehouse_Pasteur\"),",
+        "    reporting_charge_service = Source{[Schema=\"reporting\",Item=\"charge_service\"]}[Data],",
+        "    #\"Replaced Value\" = Table.ReplaceValue(reporting_charge_service,\"VOYAGE ET DEPLACEMENT\",\"السفر\",Replacer.ReplaceText,{\"Famille\"}),",
+        "    #\"Replaced Value1\" = Table.ReplaceValue(#\"Replaced Value\",\"ACHAT SANG\",\"شراء الدم\",Replacer.ReplaceText,{\"Famille\"}),",
+        "    #\"Replaced Value2\" = Table.ReplaceValue(#\"Replaced Value1\",\"ANALYSE MEDICALE\",\"التحاليل الطبية\",Replacer.ReplaceText,{\"Famille\"}),",
+        "    #\"Replaced Value3\" = Table.ReplaceValue(#\"Replaced Value2\",\"ENTRETIEN DES EQUIPEMENTS MEDICAUX\",\"صيانة المعدات الطبية\",Replacer.ReplaceText,{\"Famille\"}),",
+        "    #\"Replaced Value4\" = Table.ReplaceValue(#\"Replaced Value3\",\"ELECTRICITE\",\"الكهرباء\",Replacer.ReplaceText,{\"Famille\"}),",
+        "    #\"Replaced Value5\" = Table.ReplaceValue(#\"Replaced Value4\",\"ACHAT DIVERS\",\"مشتريات\",Replacer.ReplaceText,{\"Famille\"}),",
+        "    #\"Replaced Value6\" = Table.ReplaceValue(#\"Replaced Value5\",\"AMENAGEMENT ET AMEUBLEMENT\",\"تصميمات ومفروشات\",Replacer.ReplaceText,{\"Famille\"})",
+        "in",
+        "    #\"Replaced Value6\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\r\\n    Source = Sql.Database(\\\"192.168.20.34\\\\SQL2019\\\", \\\"Datawarehouse_Pasteur\\\"),\\r\\n    reporting_charge_service = Source{[Schema=\\\"reporting\\\",Item=\\\"charge_service\\\"]}[Data],\\r\\n    #\\\"Replaced Value\\\" = Table.ReplaceValue(reporting_charge_service,\\\"VOYAGE ET DEPLACEMENT\\\",\\\"السفر\\\",Replacer.ReplaceText,{\\\"Famille\\\"}),\\r\\n    #\\\"Replaced Value1\\\" = Table.ReplaceValue(#\\\"Replaced Value\\\",\\\"ACHAT SANG\\\",\\\"شراء الدم\\\",Replacer.ReplaceText,{\\\"Famille\\\"}),\\r\\n    #\\\"Replaced Value2\\\" = Table.ReplaceValue(#\\\"Replaced Value1\\\",\\\"ANALYSE MEDICALE\\\",\\\"التحاليل الطبية\\\",Replacer.ReplaceText,{\\\"Famille\\\"}),\\r\\n    #\\\"Replaced Value3\\\" = Table.ReplaceValue(#\\\"Replaced Value2\\\",\\\"ENTRETIEN DES EQUIPEMENTS MEDICAUX\\\",\\\"صيانة المعدات الطبية\\\",Replacer.ReplaceText,{\\\"Famille\\\"}),\\r\\n    #\\\"Replaced Value4\\\" = Table.ReplaceValue(#\\\"Replaced Value3\\\",\\\"ELECTRICITE\\\",\\\"الكهرباء\\\",Replacer.ReplaceText,{\\\"Famille\\\"}),\\r\\n    #\\\"Replaced Value5\\\" = Table.ReplaceValue(#\\\"Replaced Value4\\\",\\\"ACHAT DIVERS\\\",\\\"مشتريات\\\",Replacer.ReplaceText,{\\\"Famille\\\"}),\\r\\n    #\\\"Replaced Value6\\\" = Table.ReplaceValue(#\\\"Replaced Value5\\\",\\\"AMENAGEMENT ET AMEUBLEMENT\\\",\\\"تصميمات ومفروشات\\\",Replacer.ReplaceText,{\\\"Famille\\\"})\\r\\nin\\r\\n    #\\\"Replaced Value6\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    }
+  ],
+  "queryGroups": [
+    {
+      "name": "Query Errors - 08/07/2020 16:42:43",
+      "id": "af4f4b0f-dca5-43a1-a470-4e91ec168441",
+      "description": "Errors in queries that were loaded on 08/07/2020 16:42:43."
+    },
+    {
+      "name": "Parameter",
+      "id": "d6852887-bd4a-4cd2-a6a1-6b6de09d498f",
+      "order": 1,
+      "description": ""
+    }
+  ],
+  "culture": "fr-FR",
+  "firewallEnabled": true
+}
